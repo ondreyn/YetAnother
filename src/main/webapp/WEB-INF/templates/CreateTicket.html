@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="CreateTicket" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YetAnother</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+    <link href="/resources/css/style.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
+    <script src="/resources/js/createticket/create-ticket-module.js"></script>
+    <script src="/resources/js/createticket/controllers/create-ticket-controller.js"></script>
+    <script src="/resources/js/createticket/rest/create-ticket-ajax.js"></script>
+    <script src="/resources/js/common/convertors/object-to-xwf-convertor.js"></script>
+    <script src="/resources/js/common/validators/name-validator.js"></script>
+    <script src="/resources/js/common/validators/comment-validator.js"></script>
+    <script src="/resources/js/common/validators/date-validator.js"></script>
+    <script src="/resources/js/common/validators/description-validator.js"></script>
+    <script src="/resources/js/common/validators/file-validator.js"></script>
+    <script src="/resources/js/common/validators/complex-validator.js"></script>
+    <script src="/resources/js/common/utils/show-file-utility.js"></script>
+</head>
+<body ng-controller="CreateTicketController as $ctrl">
+
+<br>
+
+<div class="hidden">
+    <span class="loggedUser" sec:authentication="name">Bob</span><br/>
+    <span class="userRole" sec:authentication="principal.authorities">
+        [ROLE_USER, ROLE_ADMIN]
+    </span>
+    <form id="userForm" th:object="${UserModel}">
+        <input type="hidden" id="*{email}" name="email"
+               value="{{$ctrl.loggedUser}}"/>
+        <input type="hidden" id="*{role}" name="role"
+               value="{{$ctrl.currentRole}}"/>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <a class="btn btn-default green_button"
+           ng-href="/ticketsPage" style="width: 70%">
+            Ticket List
+        </a>
+    </div>
+    <div class="col-md-3">
+        <p class="header1">Create new Ticket</p>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<br>
+
+<div class="row">
+    <form id="ticketForm"
+          name="ticketForm"
+          th:object="${TicketModel}">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2 center_align font_larger">
+                Category<span class="font_color">*</span>
+            </div>
+            <div class="col-md-4">
+                <select class="btn btn-default width60"
+                        th:field="*{category}" required>
+                    <option th:each="category : ${allCategories}"
+                            th:value="${category}"
+                            th:text="${category}">
+                        Category
+                    </option>
+                </select>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2 center_align font_larger">
+                Name<span class="font_color">*</span>
+            </div>
+            <div class="col-md-4">
+                <input type="text"
+                       id="nameField"
+                       maxlength="100"
+                       th:field="*{name}"
+                       oninput="nameValidation()"
+                       required
+                       class="width60"/>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2 font_larger center_align">
+                Description
+            </div>
+            <div class="col-md-4">
+                <textarea type="text"
+                          id="descriptionField"
+                          maxlength="500" rows="5"
+                          oninput="descriptionValidation()"
+                          th:field="*{description}"
+                          class="fullwidth"></textarea>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2 center_align font_larger">
+                Urgency<span class="font_color">*</span>
+            </div>
+            <div class="col-md-4">
+                <select class="btn btn-default width60"
+                        th:field="*{urgency}" required>
+                        <option th:each="urgency : ${allUrgencies}"
+                                th:value="${urgency}"
+                                th:text="${urgency}">
+                            Urgency
+                        </option>
+                </select>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2 center_align font_larger">
+                Desired resolution date
+            </div>
+            <div class="col-md-4">
+                <input type="date"
+                       id="dateField"
+                       th:field="*{desiredResolutionDate}"
+                       oninput="dateValidation()"
+                       class="width60"/>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        <input type="hidden" id="*{state}" name="state"
+               value=""/>
+    </form>
+    <br>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-2 center_align font_larger">
+            Add attachments
+            <input type="file"
+                   name="files"
+                   id="Files"
+                   accept=".jpg, .jpeg, .png, .pdf, .doc, .docx"
+                   multiple
+                   class="hidden"/>
+        </div>
+        <div class="col-md-4">
+            <button onclick="showFilesInput()"
+                    class="btn btn-default common_button width30">
+                Browse
+            </button>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <br>
+    <form id="commentForm"
+          name="commentForm"
+          th:object="${CommentModel}">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-2 center_align font_larger">
+                Comment
+            </div>
+            <div class="col-md-4">
+                <textarea form="commentForm"
+                          id="commentField"
+                          maxlength="500" rows="3"
+                          oninput="commentValidation()"
+                          th:field="*{text}"
+                          class="fullwidth"></textarea>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </form>
+</div>
+
+<br><br>
+
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-2">
+ <a class="btn btn-default green_button" role="button" href='/'>
+     Logout
+ </a>
+</div>
+<div class="col-md-4"></div>
+<div class="col-md-2">
+ <button id="buttonDraft"
+         class="btn btn-default common_button width80"
+         ng-click="$ctrl.buttonDraft()">
+     Save as Draft
+ </button>
+</div>
+<div class="col-md-2">
+ <button id="buttonNew" class="btn btn-default green_button width80"
+         ng-click="$ctrl.buttonNew()">
+     Submit
+ </button>
+</div>
+<div class="col-md-1"></div>
+</div>
+
+<br>
+
+</body>
+</html>

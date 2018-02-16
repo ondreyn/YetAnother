@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AllTickets" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YetAnother</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+    <link href="/resources/css/style.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
+    <script src="/resources/js/alltickets/all-tickets-module.js"></script>
+    <script src="/resources/js/alltickets/controllers/all-tickets-controller.js"></script>
+    <script src="/resources/js/alltickets/utils/engineer-filter.js"></script>
+    <script src="/resources/js/alltickets/utils/manager-filter.js"></script>
+    <script src="/resources/js/alltickets/utils/populate-feedback-ids-utility.js"></script>
+    <script src="/resources/js/alltickets/validators/text-validator.js"></script>
+    <script src="/resources/js/alltickets/comparators/id-comparator.js"></script>
+    <script src="/resources/js/alltickets/comparators/desired-resolution-date-comparator.js"></script>
+    <script src="/resources/js/alltickets/comparators/name-comparator.js"></script>
+    <script src="/resources/js/alltickets/comparators/urgency-comparator.js"></script>
+    <script src="/resources/js/alltickets/comparators/state-comparator.js"></script>
+    <script src="/resources/js/alltickets/rest/edit-ticket-state-ajax.js"></script>
+</head>
+<body ng-controller="TicketsListController as $ctrl">
+
+<br><br><br>
+
+<div class="hidden">
+    <span class="loggedUser" sec:authentication="name">Bob</span><br/>
+    <span class="userRole" sec:authentication="principal.authorities">
+        [ROLE_USER, ROLE_ADMIN]
+    </span>
+</div>
+
+<div class="row" ng-if="$ctrl.currentRole != '[ROLE_ENGINEER]'">
+    <div class="col-md-8"></div>
+    <div class="col-md-3">
+        <a class="btn btn-default greenW_button" role="button"
+           ng-href="/ticketCreatePage">
+            Create New Ticket
+        </a>
+    </div>
+</div>
+
+<br><br>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+        <button id="allTicketsButton"
+                type="button" class="btn btn-default blue_button"
+                ng-click="$ctrl.allTicketsButton()"
+                value="All Tickets">
+            All Tickets
+        </button>
+    </div>
+    <div class="col-md-5">
+        <button id="myTicketsButton"
+                type="button" class="btn btn-default white_button"
+                ng-click="$ctrl.myTicketsButton()"
+                value="My Tickets">
+            My Tickets
+        </button>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<br><br>
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        <input id="searchFilter" class="search"
+               type="text"
+               ng-model="$ctrl.query"
+               oninput="textValidation()"/>
+    </div>
+    <div class="col-md-8"></div>
+    <div class="col-md-12"><p class="height10"></p></div>
+
+    <div class="col-md-1"></div>
+    <div class="col-md-10 table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr class="table_header">
+                    <th class="pos_rel">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p class="pos_header">ID</p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <i class="glyphicon glyphicon-triangle-top"
+                                           aria-hidden="true"
+                                           ng-click="sortBy('id', true)"></i>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="glyphicon glyphicon-triangle-bottom"
+                                           aria-hidden="true"
+                                           ng-click="sortBy('id', false)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th class="pos_rel">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p class="pos_header">Name</p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <i class="glyphicon glyphicon-triangle-top"
+                                           aria-hidden="true"
+                                           ng-click="sortBy('name', true)"></i>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="glyphicon glyphicon-triangle-bottom"
+                                           aria-hidden="true"
+                                           ng-click="sortBy('name', false)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th class="pos_rel">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p class="pos_header">Desired Date</p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <i class="glyphicon glyphicon-triangle-top"
+                                           aria-hidden="true"
+                                           ng-click="sortBy('desiredResolutionDate', true)"></i>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="glyphicon glyphicon-triangle-bottom"
+                                           aria-hidden="true"
+                                           ng-click="sortBy('desiredResolutionDate', false)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th class="pos_rel">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p class="pos_header">Urgency</p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <i class="glyphicon glyphicon-triangle-top"
+                                           aria-hidden="true"
+                                           ng-click="sortBy('urgency', true)"></i>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="glyphicon glyphicon-triangle-bottom"
+                                           aria-hidden="true"
+                                           ng-click="sortBy('urgency', false)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th class="pos_rel">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <p class="pos_header">Status</p>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <i class="glyphicon glyphicon-triangle-top"
+                                           aria-hidden="true"
+                                           ng-click="sortBy('state', true)"></i>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <i class="glyphicon glyphicon-triangle-bottom"
+                                           aria-hidden="true"
+                                           ng-click="sortBy('state', false)"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <p>Action</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-if="$ctrl.currentRole == '[ROLE_EMPLOYEE]'
+                    || ($ctrl.TicketsFilter != 'My Tickets'
+                    && $ctrl.currentRole == '[ROLE_MANAGER]')
+                    || ($ctrl.TicketsFilter != 'My Tickets'
+                    && $ctrl.currentRole == '[ROLE_ENGINEER]')"
+                    ng-repeat="ticket in $ctrl.tickets
+                    | filter:$ctrl.query
+                    | orderBy:$ctrl.propertyName:$ctrl.orderDimention:$ctrl.comparator">
+                    <td>{{ticket.id}}</td>
+                    <td>
+                        <a ng-href="/ticketOverviewPage/{{ticket.id}}">
+                            {{ticket.name}}
+                        </a>
+                    </td>
+                    <td>{{ticket.desiredResolutionDate | date :
+                        'dd/MM/yyyy'}}</td>
+                    <td>{{ticket.urgency}}</td>
+                    <td>{{ticket.state}}</td>
+                    <td>
+                        <!--[ROLE_EMPLOYEE]-->
+                        <select class="btn btn-default greenW_button"
+                                id="action" name="action"
+                                ng-click="$ctrl.editTicketState(ticket.id)"
+                                ng-if="$ctrl.currentRole == '[ROLE_EMPLOYEE]'
+                                && (ticket.state == 'DRAFT'
+                                || ticket.state == 'DECLINED')">
+                            <option value="{{button}}"
+                                    ng-repeat="button in $ctrl.employeeButtons">{{button}}</option>
+                        </select>
+
+                        <!--[ROLE_MANAGER]-->
+                        <select class="btn btn-default greenW_button"
+                                id="action" name="action"
+                                ng-click="$ctrl.editTicketState(ticket.id)"
+                                ng-if="$ctrl.currentRole == '[ROLE_MANAGER]'
+                                && (ticket.state == 'DRAFT'
+                                || ticket.state == 'DECLINED'
+                                || ticket.state == 'NEW')">
+                            <option value="{{button}}"
+                                    ng-if="ticket.state == 'DRAFT'
+                                    || ticket.state == 'DECLINED'"
+                                    ng-repeat="button in $ctrl.managerButtonsDR_DE">{{button}}</option>
+                            <option value="{{button}}"
+                                    ng-if="ticket.state == 'NEW'"
+                                    ng-repeat="button in $ctrl.managerButtonsNE">{{button}}</option>
+                        </select>
+
+                        <!--[ROLE_ENGINEER]-->
+                        <select class="btn btn-default greenW_button"
+                                id="action" name="action"
+                                ng-click="$ctrl.editTicketState(ticket.id)"
+                                ng-if="$ctrl.currentRole == '[ROLE_ENGINEER]'
+                                && (ticket.state == 'APPROVED')">
+                            <option value="{{button}}"
+                                    ng-if="ticket.state == 'APPROVED'"
+                                    ng-repeat="button in $ctrl.engineerButtonsAP">{{button}}</option>
+                        </select>
+
+                        <input type="button"
+                               class="btn btn-default greenW_button"
+                               ng-click="$ctrl.editTicketState(ticket.id)"
+                               ng-if="ticket.state == 'IN_PROGRESS'
+                               && $ctrl.currentRole == '[ROLE_ENGINEER]'"
+                               value="{{$ctrl.engineerButtonsIN[0]}}"/>
+
+                        <input ng-if="ticket.state == 'IN_PROGRESS'
+                               && $ctrl.currentRole == '[ROLE_ENGINEER]'"
+                               type="hidden" id="action" name="action"
+                               value="{{$ctrl.engineerButtonsIN[0]}}"/>
+
+                        <input type="hidden" id="state" name="state"
+                               value="{{ticket.state}}"/>
+
+                        <!--[ROLE_EMPLOYEE]-->
+                        <a class="btn btn-default greenW_button"
+                           ng-if="$ctrl.currentRole == '[ROLE_EMPLOYEE]'
+                           && ticket.state == 'DONE'
+                           && ticket.owner.email == $ctrl.loggedUser
+                           && !$ctrl.checkFeedback(ticket.id)"
+                           ng-href="/ticketFeedbackPage/{{ticket.id}}/new">
+                            {{$ctrl.feedbackButtons[0]}}
+                        </a>
+                        <a class="btn btn-default greenW_button"
+                           ng-if="$ctrl.currentRole == '[ROLE_EMPLOYEE]'
+                           && ticket.state == 'DONE'
+                           && ticket.owner.email == $ctrl.loggedUser
+                           && $ctrl.checkFeedback(ticket.id)"
+                           ng-href="/ticketFeedbackPage/{{ticket.id}}/view">
+                            {{$ctrl.feedbackButtons[1]}}
+                        </a>
+
+                        <!--[ROLE_MANAGER]-->
+                        <a class="btn btn-default greenW_button"
+                           ng-if="$ctrl.currentRole == '[ROLE_MANAGER]'
+                           && ticket.state == 'DONE'
+                           && ticket.owner.email == $ctrl.loggedUser
+                           && !$ctrl.checkFeedback(ticket.id)"
+                           ng-href="/ticketFeedbackPage/{{ticket.id}}/new">
+                            {{$ctrl.feedbackButtons[0]}}
+                        </a>
+                        <a class="btn btn-default greenW_button"
+                           ng-if="$ctrl.currentRole == '[ROLE_MANAGER]'
+                           && ticket.state == 'DONE'
+                           && ticket.owner.email == $ctrl.loggedUser
+                           && $ctrl.checkFeedback(ticket.id)"
+                           ng-href="/ticketFeedbackPage/{{ticket.id}}/view">
+                            {{$ctrl.feedbackButtons[1]}}
+                        </a>
+
+                        <!--[ROLE_ENGINEER]-->
+                        <a class="btn btn-default greenW_button"
+                           ng-if="$ctrl.currentRole == '[ROLE_ENGINEER]'
+                            && ticket.state == 'DONE'
+                            && $ctrl.checkFeedback(ticket.id)"
+                           ng-href="/ticketFeedbackPage/{{ticket.id}}/view">
+                            {{$ctrl.feedbackButtons[1]}}
+                        </a>
+                    </td>
+                </tr>
+
+                <tr ng-if="$ctrl.TicketsFilter == 'My Tickets'
+                    && $ctrl.currentRole == '[ROLE_MANAGER]'"
+                    ng-repeat="ticket in $ctrl.managerTickets
+                    | filter:$ctrl.query
+                    | orderBy:$ctrl.propertyName:$ctrl.orderDimention:$ctrl.comparator">
+                    <td>{{ticket.id}}</td>
+                    <td>
+                        <a ng-href="/ticketOverviewPage/{{ticket.id}}">
+                            {{ticket.name}}
+                        </a>
+                    </td>
+                    <td>{{ticket.desiredResolutionDate | date:'dd/MM/yyyy'}}</td>
+                    <td>{{ticket.urgency}}</td>
+                    <td>{{ticket.state}}</td>
+                    <td>
+                        <!--[ROLE_MANAGER]-->
+                        <select class="btn btn-default greenW_button"
+                                id="action" name="action"
+                                ng-click="$ctrl.editTicketState(ticket.id)"
+                                ng-if="$ctrl.currentRole == '[ROLE_MANAGER]'
+                                && (ticket.state == 'DRAFT'
+                                || ticket.state == 'DECLINED'
+                                || ticket.state == 'NEW')">
+                            <option value="{{button}}"
+                                    ng-if="ticket.state == 'DRAFT'
+                                    || ticket.state == 'DECLINED'"
+                                    ng-repeat="button in $ctrl.managerButtonsDR_DE">{{button}}</option>
+                            <option value="{{button}}"
+                                    ng-if="ticket.state == 'NEW'"
+                                    ng-repeat="button in $ctrl.managerButtonsNE">{{button}}</option>
+                        </select>
+
+                        <input type="hidden" id="state" name="state"
+                               value="{{ticket.state}}"/>
+
+                        <!--[ROLE_MANAGER]-->
+                        <a class="btn btn-default greenW_button"
+                           ng-if="$ctrl.currentRole == '[ROLE_MANAGER]'
+                           && ticket.state == 'DONE'
+                           && ticket.owner.email == $ctrl.loggedUser
+                           && !$ctrl.checkFeedback(ticket.id)"
+                           ng-href="/ticketFeedbackPage/{{ticket.id}}/new">
+                            {{$ctrl.feedbackButtons[0]}}
+                        </a>
+                        <a class="btn btn-default greenW_button"
+                           ng-if="$ctrl.currentRole == '[ROLE_MANAGER]'
+                           && ticket.state == 'DONE'
+                           && ticket.owner.email == $ctrl.loggedUser
+                           && $ctrl.checkFeedback(ticket.id)"
+                           ng-href="/ticketFeedbackPage/{{ticket.id}}/view">
+                            {{$ctrl.feedbackButtons[1]}}
+                        </a>
+                    </td>
+                </tr>
+
+                <tr ng-if="$ctrl.TicketsFilter == 'My Tickets'
+                    && $ctrl.currentRole == '[ROLE_ENGINEER]'"
+                    ng-repeat="ticket in $ctrl.engineerTickets
+                    | filter:$ctrl.query
+                    | orderBy:$ctrl.propertyName:$ctrl.orderDimention:$ctrl.comparator">
+                    <td>{{ticket.id}}</td>
+                    <td>
+                        <a ng-href="/ticketOverviewPage/{{ticket.id}}">
+                            {{ticket.name}}
+                        </a>
+                    </td>
+                    <td>{{ticket.desiredResolutionDate | date:'dd/MM/yyyy'}}</td>
+                    <td>{{ticket.urgency}}</td>
+                    <td>{{ticket.state}}</td>
+                    <td>
+                        <!--[ROLE_ENGINEER]-->
+                        <select class="btn btn-default greenW_button"
+                                id="action" name="action"
+                                ng-click="$ctrl.editTicketState(ticket.id)"
+                                ng-if="$ctrl.currentRole == '[ROLE_ENGINEER]'
+                                && (ticket.state == 'APPROVED')">
+                            <option value="{{button}}"
+                                    ng-if="ticket.state == 'APPROVED'"
+                                    ng-repeat="button in $ctrl.engineerButtonsAP">{{button}}</option>
+                        </select>
+
+                        <input type="button"
+                               class="btn btn-default greenW_button"
+                               ng-click="$ctrl.editTicketState(ticket.id)"
+                               ng-if="ticket.state == 'IN_PROGRESS'
+                               && $ctrl.currentRole == '[ROLE_ENGINEER]'"
+                               value="{{$ctrl.engineerButtonsIN[0]}}"/>
+
+                        <input ng-if="ticket.state == 'IN_PROGRESS'
+                               && $ctrl.currentRole == '[ROLE_ENGINEER]'"
+                               type="hidden" id="action" name="action"
+                               value="{{$ctrl.engineerButtonsIN[0]}}"/>
+
+                        <input type="hidden" id="state" name="state"
+                               value="{{ticket.state}}"/>
+
+                        <!--[ROLE_ENGINEER]-->
+                        <a class="btn btn-default greenW_button"
+                           ng-if="ticket.state == 'DONE'
+                           && $ctrl.checkFeedback(ticket.id)
+                           && $ctrl.currentRole == '[ROLE_ENGINEER]'"
+                           ng-href="/ticketFeedbackPage/{{ticket.id}}/view">
+                            {{$ctrl.feedbackButtons[1]}}
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<br>
+
+<div class="row" sec:authorize="isAuthenticated()">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+        <a class="btn btn-default greenW_button"
+           role="button" href='/'>
+            Logout
+        </a>
+    </div>
+    <div class="col-md-9"></div>
+</div>
+
+<br>
+
+</body>
+</html>

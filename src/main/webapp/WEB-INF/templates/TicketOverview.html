@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="TicketsOverview" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YetAnother</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+    <link href="/resources/css/style.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.11/angular.min.js"></script>
+    <script src="/resources/js/ticketOverview/ticket-overview-module.js"></script>
+    <script src="/resources/js/ticketOverview/controllers/ticket-overview-controller.js"></script>
+    <script src="/resources/js/ticketOverview/rest/ticket-overview-ajax.js"></script>
+    <script src="/resources/js/ticketOverview/comparators/date-comparator.js"></script>
+    <script src="/resources/js/ticketOverview/utils/check-leave-feedback-service.js"></script>
+    <script src="/resources/js/ticketOverview/utils/check-view-feedback-service.js"></script>
+    <script src="/resources/js/common/convertors/object-to-xwf-convertor.js"></script>
+    <script src="/resources/js/common/services/attachments-service.js"></script>
+    <script src="/resources/js/common/validators/comment-validator.js"></script>
+</head>
+<body ng-controller="TicketsOverviewController as $ctrl">
+
+<br>
+
+<div class="hidden" th:object="${UserModel}">
+    <span class="loggedUser" sec:authentication="name">Bob</span><br/>
+    <span class="userRole" sec:authentication="principal.authorities">
+        [ROLE_USER, ROLE_ADMIN]
+    </span>
+    <input type="hidden" id="*{email}" name="email"
+           value="{{loggedUser}}"/>
+    <input type="hidden" id="*{role}" name="role"
+           value="{{currentRole}}"/>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <a class="btn btn-default green_button"
+                   ng-href="/ticketsPage">
+                    Ticket List
+                </a>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <p class="header">
+                    Ticket (<span id="TicketId" th:text="${TicketId}">1</span>) - {{$ctrl.ticket.name}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-7"></div>
+            <div class="col-md-4">
+                <form action="{{$ctrl.editButtonLink}}"
+                      method="GET">
+                    <button id="EditButton"
+                            class="btn btn-default green_button">
+                        Edit
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6 right_align">
+                Created on:
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                {{$ctrl.ticket.createdOn | date : 'MM/dd/yyyy'}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-7"></div>
+            <div class="col-md-4">
+                <form action="{{$ctrl.leaveFeedbackLink}}"
+                      ng-if="$ctrl.checkLeaveFeedback() == 0"
+                      method="GET">
+                    <button class="btn btn-default green_button">
+                        Leave Feedback
+                    </button>
+                </form>
+                <form action="{{$ctrl.viewFeedbackLink}}"
+                      ng-if="$ctrl.checkViewFeedback() == 1"
+                      method="GET">
+                    <button class="btn btn-default green_button">
+                        View Feedback
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6 right_align">
+                Status:
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                {{$ctrl.ticket.state}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-2">
+                Category:
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-7">
+                {{$ctrl.ticket.category.name}}
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6 right_align">Urgency:</div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                {{$ctrl.ticket.urgency}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6 right_align">
+                Desired resolution date:
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                {{$ctrl.ticket.desiredResolutionDate | date : 'MM/dd/yyyy'}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6 right_align">Owner:</div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                {{$ctrl.ticket.owner.firstName}} {{$ctrl.ticket.owner.lastName}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6 right_align">Approver:</div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                {{$ctrl.ticket.approver.role}} {{$ctrl.ticket.approver.id}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6 right_align">Assignee:</div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                {{$ctrl.ticket.assignee.role}} {{$ctrl.ticket.assignee.id}}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <p class="right_align">Attachments:</p>
+    </div>
+    <div class="col-md-9">
+        <div class="row" ng-if="$ctrl.attachments.length != 0">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <select id="AttachmentsSelect" class="fullwidth"
+                                size="3" multiple required>
+                            <option ng-repeat="attachment in $ctrl.attachments"
+                                    value="{{attachment.id}}">{{attachment.fileName}} </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button type="submit"
+                        ng-click="$ctrl.downloadAttachment()">
+                    Download
+                </button>
+                <button type="submit"
+                        ng-click="$ctrl.deleteAttachment()">
+                    Delete
+                </button>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <p class="right_align">Description:</p>
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-8">
+                        <textarea readonly class="left_align field_back_color"
+                                  rows="3">{{$ctrl.ticket.description}}</textarea>
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-11">
+                <button id="HistoryButton"
+                    type="button" class="btn btn-default blue_button"
+                    ng-click="$ctrl.historyButton()"
+                    value="History">
+                    History
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-11">
+                <button id="CommentsButton"
+                    type="button" class="btn btn-default white_button"
+                    ng-click="$ctrl.commentsButton()"
+                    value="Comments">
+                    Comments
+                </button>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
+
+<br>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <p ng-if="$ctrl.OverviewFilter == 'History'">
+                    <a ng-click="$ctrl.showAllHistory()">
+                        Show All
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-8"></div>
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<div class="row" ng-if="$ctrl.OverviewFilter == 'History'">
+    <div class="col-md-1 width4"></div>
+    <div class="col-md-11">
+        <table class="table table-bordered fullwidth">
+            <thead>
+                <tr class="table_header">
+                    <th class="width15">
+                        Date
+                    </th>
+                    <th class="width20">
+                        User
+                    </th>
+                    <th class="width15">
+                        Action
+                    </th>
+                    <th class="width50">
+                        Description
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="history in $ctrl.histories">
+                    <td>{{history.date | date : 'MMM dd, yyyy HH:mm:ss'}}</td>
+                    <td>{{history.user.firstName}} {{history.user.lastName}}</td>
+                    <td>{{history.action}}</td>
+                    <td>{{history.description}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <p ng-if="$ctrl.OverviewFilter == 'Comments'">
+                    <a ng-click="$ctrl.showAllComments()">
+                        Show All
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-8"></div>
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<div class="row" ng-if="$ctrl.OverviewFilter == 'Comments'">
+    <div class="col-md-1 width4"></div>
+    <div class="col-md-11">
+        <table class="table table-bordered fullwidth">
+            <thead>
+                <tr class="table_header">
+                    <th class="width25">
+                        Date
+                    </th>
+                    <th class="width25">
+                        User
+                    </th>
+                    <th class="width50">
+                        Comment
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="comment in $ctrl.comments">
+                    <td>{{comment.date | date : 'MMM dd, yyyy HH:mm:ss'}}</td>
+                    <td>{{comment.user.firstName}} {{comment.user.lastName}}</td>
+                    <td>{{comment.text}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br>
+
+<div class="row" ng-if="$ctrl.OverviewFilter == 'Comments'">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <form id="commentForm"
+                  name="commentForm"
+                  th:object="${CommentModel}">
+                <div class="col-md-11">
+                    <textarea form="commentForm"
+                              id="commentField" rows="3"
+                              maxlength="500" class="fullwidth field_back_color"
+                              oninput="commentValidation()"
+                              th:field="*{text}"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="height15"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <button id="addCommentButton"
+                        class="btn btn-default common_button"
+                        ng-click="$ctrl.onAddComment()">
+                    Add Comment
+                </button>
+            </div>
+            <div class="col-md-8"></div>
+        </div>
+    </div>
+</div>
+
+<br/>
+
+<div class="row" sec:authorize="isAuthenticated()">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <a class="btn btn-default green_button" role="button" href='/'>
+                    Logout
+                </a>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<br>
+
+</body>
+</html>

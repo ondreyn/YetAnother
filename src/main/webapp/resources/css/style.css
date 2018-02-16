@@ -1,0 +1,117 @@
+.green_button {
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    background-color: limegreen;
+    color: black;
+}
+.greenW_button {
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    background-color: limegreen;
+    color: white;
+}
+.blue_button {
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: dodgerblue;
+    border-color: dodgerblue;
+}
+.white_button {
+    width: 100%;
+    height: 100%;
+    color: black;
+    background-color: white;
+    border-color: dodgerblue;
+}
+.common_button {
+    background: linear-gradient(to bottom, #fcffff, #e9e9de);
+    width: 100%;
+    height: 100%;
+}
+p.header {
+    font-size: 2em;
+    text-align: left;
+}
+p.header1 {
+    font-size: 2em;
+    text-align: center;
+}
+.hidden {
+    display: none;
+}
+.right_align {
+    text-align: right;
+}
+.left_align {
+    text-align: left;
+    width: 100%;
+}
+.center_align {
+    text-align: center;
+}
+.margin_top {
+    margin-top: 10px;
+}
+.fullwidth {
+    width: 100%;
+}
+.width4 {
+    width: 4%;
+}
+.width15 {
+    width: 15%;
+}
+.width20 {
+    width: 20%;
+}
+.width25 {
+    width: 25%;
+}
+.width30 {
+    width: 30%;
+}
+.width50 {
+    width: 50%;
+}
+.width60 {
+    width: 60%;
+}
+.width80 {
+    width: 80%;
+}
+.height10 {
+    height: 1em;
+}
+.height15 {
+    height: 1.5em;
+}
+.height20 {
+    height: 2em;
+}
+.table_header {
+    background-color: #e9e9de;
+    height: 3em;
+}
+.search {
+    width: 100%;
+    border-radius: 1em;
+}
+.pos_rel {
+    position: relative;
+}
+.pos_header {
+    position: absolute;
+    top: 0.75em;
+}
+.font_larger {
+    font-size: larger;
+}
+.font_color {
+    color: red;
+}
+.field_back_color {
+    background-color: #e9e9de;
+}
