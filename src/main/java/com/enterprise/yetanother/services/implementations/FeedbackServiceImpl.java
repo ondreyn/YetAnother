@@ -36,12 +36,14 @@ public class FeedbackServiceImpl implements FeedbackService {
     public void create(Feedback feedback) {
         if (feedback != null) {
             feedbackDao.create(feedback);
-            try {
-                User engineer = userService.getAssignee(feedback.getTicket());
-                emailService.sendPersonalMail(feedback.getTicket(), engineer,
+            if (emailService.isEnabled()) {
+            	try {
+            		User engineer = userService.getAssignee(feedback.getTicket());
+            		emailService.sendPersonalMail(feedback.getTicket(), engineer,
                                               Properties.FEEDBACK_PROVIDED);
-            } catch (MessagingException e) {
-                LOGGER.error("[create: MessagingException]", e);
+            	} catch (MessagingException e) {
+            		LOGGER.error("[create: MessagingException]", e);
+            	}
             }
         }
     }

@@ -111,7 +111,7 @@ public class TicketServiceImpl implements TicketService {
             ticketDao.create(ticket);
             LOGGER.info("[createTicket: Ticket created id: " + ticket.getId()
                         + "]");
-            if (ticket.getState() == State.NEW) {
+            if (emailService.isEnabled() &&	ticket.getState() == State.NEW) {
                 try {
                     List<User> managers = userService.getAllManagers();
                     emailService.sendBroadcastMail(ticket, managers,
@@ -201,7 +201,7 @@ public class TicketServiceImpl implements TicketService {
             LOGGER.info("[editTicket: edited Ticket with ID: " + ticket.getId
                     () + "]");
 
-            if (ticket.getState().equals(State.NEW)) {
+            if (emailService.isEnabled() &&	ticket.getState().equals(State.NEW)) {
                 try {
                     List<User> managers = userService.getAllManagers();
                     emailService.sendBroadcastMail(ticket, managers,
@@ -294,12 +294,14 @@ public class TicketServiceImpl implements TicketService {
             history = historyService.addHistoryOnStateChange(user,
                     ticket, state, State.NEW);
             historyDao.create(history);
-            try {
-                List<User> managers = userService.getAllManagers();
-                emailService.sendBroadcastMail(ticket, managers,
+            if (emailService.isEnabled()) {
+            	try {
+            		List<User> managers = userService.getAllManagers();
+            		emailService.sendBroadcastMail(ticket, managers,
                         Properties.NEW_TICKET);
-            } catch (MessagingException e) {
-                LOGGER.error("[doWithEmployeeAndManager: MessagingException!]", e);
+            	} catch (MessagingException e) {
+            		LOGGER.error("[doWithEmployeeAndManager: MessagingException!]", e);
+            	}
             }
             return;
         }
@@ -322,14 +324,16 @@ public class TicketServiceImpl implements TicketService {
             history = historyService.addHistoryOnTicketApproveAssign(
                     ticket, State.APPROVED, user);
             historyDao.create(history);
-            try {
-                List<User> engineers = userService.getAllEngineers();
-                User creator = userService.getCreator(ticket);
-                engineers.add(creator);
-                emailService.sendBroadcastMail(ticket, engineers,
+            if (emailService.isEnabled()) {
+            	try {
+            		List<User> engineers = userService.getAllEngineers();
+            		User creator = userService.getCreator(ticket);
+            		engineers.add(creator);
+            		emailService.sendBroadcastMail(ticket, engineers,
                         Properties.APPROVED_BY_MANAGER);
-            } catch (MessagingException e) {
-                LOGGER.error("[doWithManager: MessagingException!]", e);
+            	} catch (MessagingException e) {
+            		LOGGER.error("[doWithManager: MessagingException!]", e);
+            	}
             }
             return;
         }
@@ -339,12 +343,14 @@ public class TicketServiceImpl implements TicketService {
             history = historyService.addHistoryOnTicketApproveAssign(
                     ticket, State.DECLINED, user);
             historyDao.create(history);
-            try {
-                User creator = userService.getCreator(ticket);
-                emailService.sendPersonalMail(ticket, creator,
+            if (emailService.isEnabled()) {
+            	try {
+            		User creator = userService.getCreator(ticket);
+            		emailService.sendPersonalMail(ticket, creator,
                         Properties.DECLINED_BY_MANAGER);
-            } catch (MessagingException e) {
-                LOGGER.error("[doWithManager: MessagingException!]", e);
+            	} catch (MessagingException e) {
+            		LOGGER.error("[doWithManager: MessagingException!]", e);
+            	}
             }
             return;
         }
@@ -361,12 +367,14 @@ public class TicketServiceImpl implements TicketService {
             history = historyService.addHistoryOnTicketApproveAssign(
                     ticket, State.CANCELED, user);
             historyDao.create(history);
-            try {
-                User creator = userService.getCreator(ticket);
-                emailService.sendPersonalMail(ticket, creator,
+            if (emailService.isEnabled()) {
+            	try {
+            		User creator = userService.getCreator(ticket);
+            		emailService.sendPersonalMail(ticket, creator,
                         Properties.CANCELLED_BY_MANAGER);
-            } catch (MessagingException e) {
-                LOGGER.error("[doWithManager: MessagingException!]", e);
+            	} catch (MessagingException e) {
+            		LOGGER.error("[doWithManager: MessagingException!]", e);
+            	}
             }
         }
     }
@@ -392,14 +400,16 @@ public class TicketServiceImpl implements TicketService {
                 history = historyService.addHistoryOnTicketApproveAssign
                         (ticket, State.CANCELED, user);
                 historyDao.create(history);
-                try {
-                    List<User> recipients = new ArrayList<>();
-                    recipients.add(userService.getApprover(ticket));
-                    recipients.add(userService.getCreator(ticket));
-                    emailService.sendBroadcastMail(ticket, recipients,
+                if (emailService.isEnabled()) {
+                	try {
+                		List<User> recipients = new ArrayList<>();
+                		recipients.add(userService.getApprover(ticket));
+                		recipients.add(userService.getCreator(ticket));
+                		emailService.sendBroadcastMail(ticket, recipients,
                             Properties.CANCELLED_BY_ENGINEER);
-                } catch (MessagingException e) {
-                    LOGGER.error("[doWithEngineer: MessagingException!]", e);
+                	} catch (MessagingException e) {
+                		LOGGER.error("[doWithEngineer: MessagingException!]", e);
+                	}
                 }
             }
             return;
@@ -411,12 +421,14 @@ public class TicketServiceImpl implements TicketService {
                         user, ticket, state, State.DONE);
                 historyDao.create(history);
 
-                try {
-                    User creator = userService.getCreator(ticket);
-                    emailService.sendPersonalMail(ticket, creator,
+                if (emailService.isEnabled()) {
+                	try {
+                		User creator = userService.getCreator(ticket);
+                		emailService.sendPersonalMail(ticket, creator,
                             Properties.DONE_BY_ENGINEER);
-                } catch (MessagingException e) {
-                    LOGGER.error("[doWithEngineer: MessagingException!]", e);
+                	} catch (MessagingException e) {
+                		LOGGER.error("[doWithEngineer: MessagingException!]", e);
+                	}
                 }
             }
         }

@@ -16,4 +16,6 @@ public interface EmailService {
 
     void sendPersonalMail(final Ticket ticket, User recipients, String[]
                           mailOptions) throws MessagingException;
+    
+    boolean isEnabled();
 }

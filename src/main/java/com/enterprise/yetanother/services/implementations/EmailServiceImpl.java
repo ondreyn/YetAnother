@@ -29,6 +29,9 @@ public class EmailServiceImpl implements EmailService {
 
     final static Logger LOGGER = LoggerFactory
                                  .getLogger(EmailServiceImpl.class);
+    
+    @Value("${mail.enable}")
+    private boolean ENABLED;
 
     @Value("${mail.server.username}")
     private String SENDER;
@@ -39,6 +42,11 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     @Qualifier("emailEngine")
     private TemplateEngine htmlTemplateEngine;
+    
+    @Override
+    public boolean isEnabled() {
+    	return ENABLED;    	
+    }
 
     private List<MimeMessageHelper> broadcastMail(List<User> users,
                                                   String subject) {
@@ -64,6 +72,10 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendBroadcastMail(Ticket ticket, List<User> recipients,
                                   String[] mailOptions) throws MessagingException {
+    	
+    	/*if (!ENABLED) {
+    		return;
+    	}*/
 
         final Context ctx   = new Context();
         ctx.setVariable("ticket_id", ticket.getId());
@@ -89,6 +101,10 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendPersonalMail(Ticket ticket, User recipient,
                                  String[] mailOptions) throws MessagingException {
+    	
+    	/*if (!ENABLED) {
+    		return;
+    	}*/
 
         if (ticket != null && recipient != null && mailOptions != null) {
             final Context ctx = new Context();

@@ -105,6 +105,7 @@ public class WebAppConfig implements WebMvcConfigurer {
     @Autowired
     private List<Formatter<?>> formatters;
 
+    //Unnecessary for Spring 5
     /*@Bean
     public static PropertySourcesPlaceholderConfigurer
                                         propertySourcesPlaceholderConfigurer() {
@@ -131,7 +132,8 @@ public class WebAppConfig implements WebMvcConfigurer {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan(
-                "com.novikov.enterprise.yetanother.entities"
+                //"com.novikov.enterprise.yetanother.entities"
+        		"com.enterprise.yetanother.entities"
         );
         sessionFactory.setHibernateProperties(hibernateProperties());
 
