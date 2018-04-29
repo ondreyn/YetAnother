@@ -2,7 +2,7 @@ package com.enterprise.yetanother.dao.implementations;
 
 import com.enterprise.yetanother.entities.Attachment;
 import com.enterprise.yetanother.dao.interfaces.AttachmentDao;
-import com.enterprise.yetanother.entities.Attachment;
+//import com.enterprise.yetanother.entities.Attachment;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
@@ -96,7 +96,7 @@ public class AttachmentDaoImpl implements AttachmentDao {
         if (attachmentId != null) {
             String hql = "DELETE FROM Attachment e WHERE e.id = :attachmentId";
 
-            Query query = sessionFactory.getCurrentSession().createQuery(hql);
+            Query<Attachment> query = sessionFactory.getCurrentSession().createQuery(hql);
             query.setParameter("attachmentId", attachmentId);
             query.executeUpdate();
             LOGGER.info("[delete: " + attachmentId + " deleted]");

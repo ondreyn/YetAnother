@@ -1,7 +1,7 @@
 package com.enterprise.yetanother.dao.interfaces;
 
 import com.enterprise.yetanother.entities.Feedback;
-import com.enterprise.yetanother.entities.Feedback;
+//import com.enterprise.yetanother.entities.Feedback;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

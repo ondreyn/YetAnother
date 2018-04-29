@@ -5,8 +5,8 @@ import com.enterprise.yetanother.test.configuration.WebAppConfigTest;
 import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.enterprise.yetanother.controllers.InitController;
-import com.enterprise.yetanother.test.configuration.PersistenceConfigTest;
-import com.enterprise.yetanother.test.configuration.WebAppConfigTest;
+/*import com.enterprise.yetanother.test.configuration.PersistenceConfigTest;
+import com.enterprise.yetanother.test.configuration.WebAppConfigTest;*/
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

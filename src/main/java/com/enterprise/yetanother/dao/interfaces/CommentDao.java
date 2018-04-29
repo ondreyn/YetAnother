@@ -1,7 +1,7 @@
 package com.enterprise.yetanother.dao.interfaces;
 
 import com.enterprise.yetanother.entities.Comment;
-import com.enterprise.yetanother.entities.Comment;
+//import com.enterprise.yetanother.entities.Comment;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

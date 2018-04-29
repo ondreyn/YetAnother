@@ -13,4 +13,7 @@ appender("FILE", FileAppender) {
         outputPatternAsHeader = true
     }
 }
-root(INFO, ["STDOUT", "FILE"])
+root(INFO, ["FILE", "STDOUT"])
+//root(INFO, ["STDOUT", "FILE"])
+//root(ERROR, ["STDOUT", "FILE"])
+//root(ERROR, ["FILE"])

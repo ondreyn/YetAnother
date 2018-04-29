@@ -2,12 +2,13 @@ package com.enterprise.yetanother.configuration;
 
 import com.enterprise.yetanother.enums.Roles;
 import com.enterprise.yetanother.services.interfaces.UserService;
-import com.enterprise.yetanother.enums.Roles;
-import com.enterprise.yetanother.services.interfaces.UserService;
+//import com.enterprise.yetanother.enums.Roles;
+//import com.enterprise.yetanother.services.interfaces.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+//import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,6 +22,7 @@ import java.util.List;
  */
 @Configuration
 @EnableWebSecurity
+//@Import(WebAppConfig.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     final static Logger LOGGER = LoggerFactory

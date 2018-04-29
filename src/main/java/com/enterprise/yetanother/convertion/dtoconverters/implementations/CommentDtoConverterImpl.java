@@ -4,9 +4,9 @@ import com.enterprise.yetanother.convertion.dtovalidation.interfaces.CommentVali
 import com.enterprise.yetanother.dto.comment.CommentDto;
 import com.enterprise.yetanother.entities.Comment;
 import com.enterprise.yetanother.convertion.dtoconverters.interfaces.CommentDtoConverter;
-import com.enterprise.yetanother.dto.comment.CommentDto;
+/*import com.enterprise.yetanother.dto.comment.CommentDto;
 import com.enterprise.yetanother.entities.Comment;
-import com.enterprise.yetanother.convertion.dtovalidation.interfaces.CommentValidator;
+import com.enterprise.yetanother.convertion.dtovalidation.interfaces.CommentValidator;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

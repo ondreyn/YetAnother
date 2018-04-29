@@ -4,9 +4,9 @@ import com.enterprise.yetanother.entities.Ticket;
 import com.enterprise.yetanother.entities.User;
 import com.enterprise.yetanother.enums.Roles;
 import com.enterprise.yetanother.dao.interfaces.UserDao;
-import com.enterprise.yetanother.entities.Ticket;
+/*import com.enterprise.yetanother.entities.Ticket;
 import com.enterprise.yetanother.entities.User;
-import com.enterprise.yetanother.enums.Roles;
+import com.enterprise.yetanother.enums.Roles;*/
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
@@ -54,7 +54,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public User findById(Long id) {
         if (id != null) {

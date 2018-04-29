@@ -5,11 +5,11 @@ import com.enterprise.yetanother.entities.Ticket;
 import com.enterprise.yetanother.enums.State;
 import com.enterprise.yetanother.enums.Urgency;
 import com.enterprise.yetanother.init.Properties;
-import com.enterprise.yetanother.dto.ticket.TicketDto;
+/*import com.enterprise.yetanother.dto.ticket.TicketDto;
 import com.enterprise.yetanother.entities.Ticket;
 import com.enterprise.yetanother.enums.State;
 import com.enterprise.yetanother.enums.Urgency;
-import com.enterprise.yetanother.init.Properties;
+import com.enterprise.yetanother.init.Properties;*/
 import com.enterprise.yetanother.convertion.dtovalidation.interfaces.TicketValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -2,8 +2,8 @@ package com.enterprise.yetanother.convertion.dtovalidation.implementations;
 
 import com.enterprise.yetanother.dto.comment.CommentDto;
 import com.enterprise.yetanother.init.Properties;
-import com.enterprise.yetanother.init.Properties;
-import com.enterprise.yetanother.dto.comment.CommentDto;
+/*import com.enterprise.yetanother.init.Properties;
+import com.enterprise.yetanother.dto.comment.CommentDto;*/
 import com.enterprise.yetanother.convertion.dtovalidation.interfaces.CommentValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

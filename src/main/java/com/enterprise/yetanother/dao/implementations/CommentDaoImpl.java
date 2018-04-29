@@ -2,7 +2,7 @@ package com.enterprise.yetanother.dao.implementations;
 
 import com.enterprise.yetanother.entities.Comment;
 import com.enterprise.yetanother.dao.interfaces.CommentDao;
-import com.enterprise.yetanother.entities.Comment;
+//import com.enterprise.yetanother.entities.Comment;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;

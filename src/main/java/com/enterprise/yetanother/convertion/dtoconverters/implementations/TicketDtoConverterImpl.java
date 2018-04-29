@@ -6,11 +6,11 @@ import com.enterprise.yetanother.entities.Category;
 import com.enterprise.yetanother.entities.Ticket;
 import com.enterprise.yetanother.services.interfaces.CategoryService;
 import com.enterprise.yetanother.convertion.dtoconverters.interfaces.TicketDtoConverter;
-import com.enterprise.yetanother.entities.Category;
+/*import com.enterprise.yetanother.entities.Category;
 import com.enterprise.yetanother.entities.Ticket;
 import com.enterprise.yetanother.dto.ticket.TicketDto;
 import com.enterprise.yetanother.services.interfaces.CategoryService;
-import com.enterprise.yetanother.convertion.dtovalidation.interfaces.TicketValidator;
+import com.enterprise.yetanother.convertion.dtovalidation.interfaces.TicketValidator;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

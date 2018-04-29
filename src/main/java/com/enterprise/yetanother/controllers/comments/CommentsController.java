@@ -7,12 +7,12 @@ import com.enterprise.yetanother.services.interfaces.CommentsService;
 import com.enterprise.yetanother.services.interfaces.TicketService;
 import com.enterprise.yetanother.services.interfaces.UserService;
 import com.enterprise.yetanother.convertion.dtoconverters.interfaces.CommentDtoConverter;
-import com.enterprise.yetanother.dto.comment.CommentDto;
+/*import com.enterprise.yetanother.dto.comment.CommentDto;
 import com.enterprise.yetanother.entities.Comment;
 import com.enterprise.yetanother.init.Properties;
 import com.enterprise.yetanother.services.interfaces.CommentsService;
 import com.enterprise.yetanother.services.interfaces.TicketService;
-import com.enterprise.yetanother.services.interfaces.UserService;
+import com.enterprise.yetanother.services.interfaces.UserService;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

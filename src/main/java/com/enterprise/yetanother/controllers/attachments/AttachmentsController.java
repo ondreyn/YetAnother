@@ -5,10 +5,10 @@ import com.enterprise.yetanother.entities.Attachment;
 import com.enterprise.yetanother.services.interfaces.AttachmentsService;
 import com.enterprise.yetanother.utilities.Commons;
 import com.enterprise.yetanother.convertion.dtoconverters.interfaces.AttachmentDtoConverter;
-import com.enterprise.yetanother.entities.Attachment;
+/*import com.enterprise.yetanother.entities.Attachment;
 import com.enterprise.yetanother.dto.attachments.AttachmentDto;
 import com.enterprise.yetanother.services.interfaces.AttachmentsService;
-import com.enterprise.yetanother.utilities.Commons;
+import com.enterprise.yetanother.utilities.Commons;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

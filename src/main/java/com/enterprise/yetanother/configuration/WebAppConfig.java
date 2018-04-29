@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+//import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
@@ -51,7 +51,8 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @PropertySource({"classpath:hibernate.properties"})
-@ComponentScan(basePackages = {"com.novikov.enterprise.yetanother"})
+@ComponentScan(basePackages = {"com.enterprise.yetanother"})
+//@ComponentScan(basePackages = {"com.novikov.enterprise.yetanother"})
 public class WebAppConfig implements WebMvcConfigurer {
 
     final static Logger LOGGER = LoggerFactory.getLogger(WebAppConfig.class);
@@ -104,12 +105,12 @@ public class WebAppConfig implements WebMvcConfigurer {
     @Autowired
     private List<Formatter<?>> formatters;
 
-    @Bean
+    /*@Bean
     public static PropertySourcesPlaceholderConfigurer
                                         propertySourcesPlaceholderConfigurer() {
         LOGGER.info("[propertySourcesPlaceholderConfigurer Bean]");
         return new PropertySourcesPlaceholderConfigurer();
-    }
+    }*/
 
     @Bean
     public DataSource dataSource() {

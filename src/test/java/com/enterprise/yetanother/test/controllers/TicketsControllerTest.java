@@ -8,13 +8,13 @@ import com.enterprise.yetanother.enums.Urgency;
 import com.enterprise.yetanother.test.configuration.PersistenceConfigTest;
 import com.enterprise.yetanother.test.configuration.WebAppConfigTest;
 import com.enterprise.yetanother.controllers.tickets.TicketsController;
-import com.enterprise.yetanother.dto.ticket.TicketDto;
+/*import com.enterprise.yetanother.dto.ticket.TicketDto;
 import com.enterprise.yetanother.entities.User;
 import com.enterprise.yetanother.enums.Roles;
 import com.enterprise.yetanother.enums.State;
 import com.enterprise.yetanother.enums.Urgency;
 import com.enterprise.yetanother.test.configuration.PersistenceConfigTest;
-import com.enterprise.yetanother.test.configuration.WebAppConfigTest;
+import com.enterprise.yetanother.test.configuration.WebAppConfigTest;*/
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

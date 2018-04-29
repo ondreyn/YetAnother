@@ -2,8 +2,8 @@ package com.enterprise.yetanother.convertion.dtovalidation.implementations;
 
 import com.enterprise.yetanother.dto.attachments.AttachmentDto;
 import com.enterprise.yetanother.init.Properties;
-import com.enterprise.yetanother.init.Properties;
-import com.enterprise.yetanother.dto.attachments.AttachmentDto;
+/*import com.enterprise.yetanother.init.Properties;
+import com.enterprise.yetanother.dto.attachments.AttachmentDto;*/
 import com.enterprise.yetanother.convertion.dtovalidation.interfaces.AttachmentsValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
