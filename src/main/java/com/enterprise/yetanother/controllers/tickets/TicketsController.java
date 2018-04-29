@@ -7,12 +7,6 @@ import com.enterprise.yetanother.services.interfaces.TicketService;
 import com.enterprise.yetanother.services.interfaces.TicketsService;
 import com.enterprise.yetanother.services.interfaces.UserService;
 import com.enterprise.yetanother.convertion.dtoconverters.interfaces.TicketDtoConverter;
-/*import com.enterprise.yetanother.entities.Ticket;
-import com.enterprise.yetanother.entities.User;
-import com.enterprise.yetanother.dto.ticket.TicketDto;
-import com.enterprise.yetanother.services.interfaces.TicketService;
-import com.enterprise.yetanother.services.interfaces.TicketsService;
-import com.enterprise.yetanother.services.interfaces.UserService;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

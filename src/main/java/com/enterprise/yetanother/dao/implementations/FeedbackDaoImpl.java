@@ -2,7 +2,6 @@ package com.enterprise.yetanother.dao.implementations;
 
 import com.enterprise.yetanother.entities.Feedback;
 import com.enterprise.yetanother.dao.interfaces.FeedbackDao;
-//import com.enterprise.yetanother.entities.Feedback;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;

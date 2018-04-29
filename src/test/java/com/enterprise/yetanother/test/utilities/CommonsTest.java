@@ -2,8 +2,6 @@ package com.enterprise.yetanother.test.utilities;
 
 import com.enterprise.yetanother.entities.Attachment;
 import com.enterprise.yetanother.utilities.Commons;
-/*import com.enterprise.yetanother.entities.Attachment;
-import com.enterprise.yetanother.utilities.Commons;*/
 import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;

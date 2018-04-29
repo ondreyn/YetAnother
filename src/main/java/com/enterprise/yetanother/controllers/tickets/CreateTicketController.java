@@ -13,15 +13,6 @@ import com.enterprise.yetanother.convertion.dtoconverters.interfaces.AttachmentD
 import com.enterprise.yetanother.convertion.dtoconverters.interfaces.CommentDtoConverter;
 import com.enterprise.yetanother.convertion.dtoconverters.interfaces.TicketDtoConverter;
 import com.enterprise.yetanother.convertion.dtoconverters.interfaces.UserDtoConverter;
-/*import com.enterprise.yetanother.dto.user.UserDto;
-import com.enterprise.yetanother.entities.Attachment;
-import com.enterprise.yetanother.entities.Comment;
-import com.enterprise.yetanother.entities.Ticket;
-import com.enterprise.yetanother.entities.User;
-import com.enterprise.yetanother.dto.comment.CommentDto;
-import com.enterprise.yetanother.dto.ticket.TicketDto;
-import com.enterprise.yetanother.services.interfaces.TicketService;
-import com.enterprise.yetanother.utilities.Commons;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,6 @@ package com.enterprise.yetanother.dto.comment;
 
 import com.enterprise.yetanother.entities.Ticket;
 import com.enterprise.yetanother.entities.User;
-/*import com.enterprise.yetanother.entities.Ticket;
-import com.enterprise.yetanother.entities.User;*/
 
 import java.util.Date;
 import java.util.Objects;

@@ -1,7 +1,6 @@
 package com.enterprise.yetanother.dto.user;
 
 import com.enterprise.yetanother.enums.Roles;
-//import com.enterprise.yetanother.enums.Roles;
 
 import java.util.Objects;
 

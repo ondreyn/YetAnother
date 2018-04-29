@@ -1,7 +1,6 @@
 package com.enterprise.yetanother.convertion.dtovalidation.interfaces;
 
 import com.enterprise.yetanother.dto.attachments.AttachmentDto;
-//import com.enterprise.yetanother.dto.attachments.AttachmentDto;
 import org.springframework.web.multipart.MultipartFile;
 
 /**

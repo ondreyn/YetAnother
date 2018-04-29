@@ -1,7 +1,6 @@
 package com.enterprise.yetanother.dao.interfaces;
 
 import com.enterprise.yetanother.entities.History;
-//import com.enterprise.yetanother.entities.History;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

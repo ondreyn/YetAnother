@@ -71,12 +71,8 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendBroadcastMail(Ticket ticket, List<User> recipients,
-                                  String[] mailOptions) throws MessagingException {
+                                  String[] mailOptions) throws MessagingException {    	
     	
-    	/*if (!ENABLED) {
-    		return;
-    	}*/
-
         final Context ctx   = new Context();
         ctx.setVariable("ticket_id", ticket.getId());
 
@@ -102,10 +98,6 @@ public class EmailServiceImpl implements EmailService {
     public void sendPersonalMail(Ticket ticket, User recipient,
                                  String[] mailOptions) throws MessagingException {
     	
-    	/*if (!ENABLED) {
-    		return;
-    	}*/
-
         if (ticket != null && recipient != null && mailOptions != null) {
             final Context ctx = new Context();
 

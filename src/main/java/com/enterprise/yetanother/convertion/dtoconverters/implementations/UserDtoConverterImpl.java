@@ -6,11 +6,6 @@ import com.enterprise.yetanother.entities.User;
 import com.enterprise.yetanother.enums.Roles;
 import com.enterprise.yetanother.services.interfaces.UserService;
 import com.enterprise.yetanother.convertion.dtoconverters.interfaces.UserDtoConverter;
-/*import com.enterprise.yetanother.entities.User;
-import com.enterprise.yetanother.enums.Roles;
-import com.enterprise.yetanother.dto.user.UserDto;
-import com.enterprise.yetanother.services.interfaces.UserService;
-import com.enterprise.yetanother.convertion.dtovalidation.interfaces.UserValidator;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

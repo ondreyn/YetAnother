@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-//import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.MediaType;
@@ -52,7 +51,6 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource({"classpath:hibernate.properties"})
 @ComponentScan(basePackages = {"com.enterprise.yetanother"})
-//@ComponentScan(basePackages = {"com.novikov.enterprise.yetanother"})
 public class WebAppConfig implements WebMvcConfigurer {
 
     final static Logger LOGGER = LoggerFactory.getLogger(WebAppConfig.class);
@@ -105,14 +103,6 @@ public class WebAppConfig implements WebMvcConfigurer {
     @Autowired
     private List<Formatter<?>> formatters;
 
-    //Unnecessary for Spring 5
-    /*@Bean
-    public static PropertySourcesPlaceholderConfigurer
-                                        propertySourcesPlaceholderConfigurer() {
-        LOGGER.info("[propertySourcesPlaceholderConfigurer Bean]");
-        return new PropertySourcesPlaceholderConfigurer();
-    }*/
-
     @Bean
     public DataSource dataSource() {
         LOGGER.info("[dataSource Bean]");
@@ -131,8 +121,7 @@ public class WebAppConfig implements WebMvcConfigurer {
         LOGGER.info("[sessionFactory Bean]");
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(
-                //"com.novikov.enterprise.yetanother.entities"
+        sessionFactory.setPackagesToScan(                
         		"com.enterprise.yetanother.entities"
         );
         sessionFactory.setHibernateProperties(hibernateProperties());

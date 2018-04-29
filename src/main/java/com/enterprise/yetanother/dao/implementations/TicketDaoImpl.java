@@ -5,10 +5,6 @@ import com.enterprise.yetanother.entities.User;
 import com.enterprise.yetanother.enums.Roles;
 import com.enterprise.yetanother.enums.State;
 import com.enterprise.yetanother.dao.interfaces.TicketDao;
-/*import com.enterprise.yetanother.entities.Ticket;
-import com.enterprise.yetanother.entities.User;
-import com.enterprise.yetanother.enums.Roles;
-import com.enterprise.yetanother.enums.State;*/
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;

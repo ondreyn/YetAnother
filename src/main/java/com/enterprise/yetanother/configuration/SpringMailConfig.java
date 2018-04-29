@@ -18,8 +18,6 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
-//import com.enterprise.yetanother.utilities.Commons;
-
 /**
  *@author andrey
  */
@@ -30,9 +28,6 @@ public class SpringMailConfig implements ApplicationContextAware {
     final static Logger LOGGER = LoggerFactory.getLogger(SpringMailConfig.class);
 
     private static final String JAVA_MAIL_FILE = "classpath:javamail.properties";
-    
-    @Value("${mail.enable}")
-    private boolean ENABLE;
 
     @Value("${mail.server.host}")
     private String HOST;
@@ -56,22 +51,10 @@ public class SpringMailConfig implements ApplicationContextAware {
            final ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
-    
-    /*private boolean isEnabled() {
-    	//if (ENABLE) {
-    		return ENABLE;
-    	//} else {
-    	//	return false;
-    	//}
-    }*/
 
     @Bean
-    public JavaMailSender mailSender() throws IOException {
+    public JavaMailSender mailSender() throws IOException {    	
     	
-    	/*if (!isEnabled()) {
-    		return null;
-    	}*/
-
         LOGGER.info("[JavaMailSender Bean]");
 
         final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -82,7 +65,7 @@ public class SpringMailConfig implements ApplicationContextAware {
         	mailSender.setProtocol(PROTOCOL);
         	mailSender.setUsername(USERNAME);
         	mailSender.setPassword(PASSWORD);
-        //mailSender.
+        
         	final Properties javaMailProperties = new Properties();
         	javaMailProperties.load(this.applicationContext
                                 .getResource(JAVA_MAIL_FILE).getInputStream());
@@ -95,12 +78,8 @@ public class SpringMailConfig implements ApplicationContextAware {
     }
 
     @Bean(name = "mailResolver")
-    public SpringResourceTemplateResolver mailTemplateResolver() {
+    public SpringResourceTemplateResolver mailTemplateResolver() {    	
     	
-    	/*if (!isEnabled()) {
-    		return null;
-    	}*/
-
         LOGGER.info("[SpringResourceTemplateResolver 'mailResolver' Bean]");
 
         final SpringResourceTemplateResolver templateResolver =
@@ -115,10 +94,6 @@ public class SpringMailConfig implements ApplicationContextAware {
 
     @Bean(name = "emailEngine")
     public SpringTemplateEngine templateEngine(){
-    	
-    	/*if (!isEnabled()) {
-    		return null;
-    	}*/
 
         LOGGER.info("[SpringTemplateEngine 'emailEngine' Bean]");
 

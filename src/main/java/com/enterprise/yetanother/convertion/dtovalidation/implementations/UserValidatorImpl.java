@@ -4,10 +4,6 @@ import com.enterprise.yetanother.dto.user.UserDto;
 import com.enterprise.yetanother.entities.User;
 import com.enterprise.yetanother.enums.Roles;
 import com.enterprise.yetanother.init.Properties;
-/*import com.enterprise.yetanother.entities.User;
-import com.enterprise.yetanother.enums.Roles;
-import com.enterprise.yetanother.init.Properties;
-import com.enterprise.yetanother.dto.user.UserDto;*/
 import com.enterprise.yetanother.convertion.dtovalidation.interfaces.UserValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -28,7 +28,7 @@ public class SpringMailConfigTest implements ApplicationContextAware {
     final static Logger LOGGER = LoggerFactory
                                  .getLogger(SpringMailConfigTest.class);
 
-    private static final String JAVA_MAIL_FILE = "classpath:javamail.properties";
+    private static final String JAVA_MAIL_FILE = "classpath:javamail.properties";    
 
     @Value("${mail.server.host}")
     private String HOST;
@@ -58,15 +58,20 @@ public class SpringMailConfigTest implements ApplicationContextAware {
         LOGGER.info("[JavaMailSender Bean]");
 
         final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(HOST);
-        mailSender.setPort(PORT);
-        mailSender.setProtocol(PROTOCOL);
-        mailSender.setUsername(USERNAME);
-        mailSender.setPassword(PASSWORD);
-        final Properties javaMailProperties = new Properties();
-        javaMailProperties.load(this.applicationContext
+        
+        try {
+        	mailSender.setHost(HOST);
+        	mailSender.setPort(PORT);
+        	mailSender.setProtocol(PROTOCOL);
+        	mailSender.setUsername(USERNAME);
+        	mailSender.setPassword(PASSWORD);
+        	final Properties javaMailProperties = new Properties();
+        	javaMailProperties.load(this.applicationContext
                                 .getResource(JAVA_MAIL_FILE).getInputStream());
-        mailSender.setJavaMailProperties(javaMailProperties);
+        	mailSender.setJavaMailProperties(javaMailProperties);
+        } catch(Exception e) {
+        	LOGGER.warn("[mailSender(): " + e.getMessage() + "]");
+        }
 
         return mailSender;
     }

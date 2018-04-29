@@ -1,7 +1,6 @@
 package com.enterprise.yetanother.convertion.formatters;
 
 import com.enterprise.yetanother.enums.Roles;
-//import com.enterprise.yetanother.enums.Roles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.Formatter;

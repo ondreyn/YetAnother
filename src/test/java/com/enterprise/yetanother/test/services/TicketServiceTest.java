@@ -9,15 +9,6 @@ import com.enterprise.yetanother.enums.Urgency;
 import com.enterprise.yetanother.services.interfaces.TicketService;
 import com.enterprise.yetanother.test.configuration.PersistenceConfigTest;
 import com.enterprise.yetanother.test.configuration.WebAppConfigTest;
-/*import com.enterprise.yetanother.dao.interfaces.CategoryDao;
-import com.enterprise.yetanother.dao.interfaces.TicketDao;
-import com.enterprise.yetanother.dao.interfaces.UserDao;
-import com.enterprise.yetanother.entities.*;
-import com.enterprise.yetanother.enums.State;
-import com.enterprise.yetanother.enums.Urgency;
-import com.enterprise.yetanother.services.interfaces.TicketService;
-import com.enterprise.yetanother.test.configuration.PersistenceConfigTest;
-import com.enterprise.yetanother.test.configuration.WebAppConfigTest;*/
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

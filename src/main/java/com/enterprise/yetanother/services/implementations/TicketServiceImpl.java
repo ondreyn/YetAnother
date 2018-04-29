@@ -10,7 +10,6 @@ import com.enterprise.yetanother.services.interfaces.EmailService;
 import com.enterprise.yetanother.services.interfaces.HistoryService;
 import com.enterprise.yetanother.services.interfaces.TicketService;
 import com.enterprise.yetanother.services.interfaces.UserService;
-//import com.enterprise.yetanother.utilities.Commons;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

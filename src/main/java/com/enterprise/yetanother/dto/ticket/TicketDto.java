@@ -5,11 +5,6 @@ import com.enterprise.yetanother.entities.Feedback;
 import com.enterprise.yetanother.entities.User;
 import com.enterprise.yetanother.enums.State;
 import com.enterprise.yetanother.enums.Urgency;
-/*import com.enterprise.yetanother.entities.Category;
-import com.enterprise.yetanother.entities.Feedback;
-import com.enterprise.yetanother.entities.User;
-import com.enterprise.yetanother.enums.State;
-import com.enterprise.yetanother.enums.Urgency;*/
 
 import java.util.Date;
 import java.util.Objects;

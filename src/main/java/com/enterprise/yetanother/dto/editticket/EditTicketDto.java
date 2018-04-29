@@ -1,7 +1,6 @@
 package com.enterprise.yetanother.dto.editticket;
 
 import com.enterprise.yetanother.enums.State;
-//import com.enterprise.yetanother.enums.State;
 
 import java.util.Objects;
 

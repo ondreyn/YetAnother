@@ -3,9 +3,6 @@ package com.enterprise.yetanother.convertion.dtovalidation.implementations;
 import com.enterprise.yetanother.dto.feedback.FeedbackDto;
 import com.enterprise.yetanother.entities.Feedback;
 import com.enterprise.yetanother.init.Properties;
-/*import com.enterprise.yetanother.dto.feedback.FeedbackDto;
-import com.enterprise.yetanother.entities.Feedback;
-import com.enterprise.yetanother.init.Properties;*/
 import com.enterprise.yetanother.convertion.dtovalidation.interfaces.FeedbackValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

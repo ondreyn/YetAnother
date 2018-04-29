@@ -2,7 +2,6 @@ package com.enterprise.yetanother.dao.implementations;
 
 import com.enterprise.yetanother.entities.Attachment;
 import com.enterprise.yetanother.dao.interfaces.AttachmentDao;
-//import com.enterprise.yetanother.entities.Attachment;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;

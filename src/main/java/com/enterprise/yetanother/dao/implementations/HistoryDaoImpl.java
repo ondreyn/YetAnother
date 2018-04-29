@@ -2,7 +2,6 @@ package com.enterprise.yetanother.dao.implementations;
 
 import com.enterprise.yetanother.entities.History;
 import com.enterprise.yetanother.dao.interfaces.HistoryDao;
-//import com.enterprise.yetanother.entities.History;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;

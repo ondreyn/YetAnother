@@ -3,8 +3,6 @@ package com.enterprise.yetanother.convertion.dtoconverters.implementations;
 import com.enterprise.yetanother.dto.history.HistoryDto;
 import com.enterprise.yetanother.entities.History;
 import com.enterprise.yetanother.convertion.dtoconverters.interfaces.HistoryDtoConverter;
-//import com.enterprise.yetanother.dto.history.HistoryDto;
-//import com.enterprise.yetanother.entities.History;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

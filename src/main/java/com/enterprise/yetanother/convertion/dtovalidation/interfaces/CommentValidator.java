@@ -1,7 +1,6 @@
 package com.enterprise.yetanother.convertion.dtovalidation.interfaces;
 
 import com.enterprise.yetanother.dto.comment.CommentDto;
-//import com.enterprise.yetanother.dto.comment.CommentDto;
 
 import java.util.Date;
 

@@ -3,9 +3,6 @@ package com.enterprise.yetanother.dao.interfaces;
 import com.enterprise.yetanother.entities.Ticket;
 import com.enterprise.yetanother.entities.User;
 import com.enterprise.yetanother.enums.Roles;
-/*import com.enterprise.yetanother.entities.Ticket;
-import com.enterprise.yetanother.entities.User;
-import com.enterprise.yetanother.enums.Roles;*/
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

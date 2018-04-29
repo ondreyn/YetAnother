@@ -4,9 +4,6 @@ import com.enterprise.yetanother.dto.history.HistoryDto;
 import com.enterprise.yetanother.init.Properties;
 import com.enterprise.yetanother.services.interfaces.HistoryService;
 import com.enterprise.yetanother.convertion.dtoconverters.interfaces.HistoryDtoConverter;
-/*import com.enterprise.yetanother.dto.history.HistoryDto;
-import com.enterprise.yetanother.init.Properties;
-import com.enterprise.yetanother.services.interfaces.HistoryService;*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

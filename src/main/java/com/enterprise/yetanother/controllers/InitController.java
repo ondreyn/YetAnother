@@ -10,16 +10,6 @@ import com.enterprise.yetanother.enums.State;
 import com.enterprise.yetanother.enums.Urgency;
 import com.enterprise.yetanother.services.interfaces.CategoryService;
 import com.enterprise.yetanother.services.interfaces.TicketService;
-/*import com.enterprise.yetanother.dto.feedback.FeedbackDto;
-import com.enterprise.yetanother.dto.ticket.TicketDto;
-import com.enterprise.yetanother.dto.user.UserDto;
-import com.enterprise.yetanother.entities.Ticket;
-import com.enterprise.yetanother.enums.State;
-import com.enterprise.yetanother.enums.Urgency;
-import com.enterprise.yetanother.dto.comment.CommentDto;
-import com.enterprise.yetanother.dto.editticket.EditTicketDto;
-import com.enterprise.yetanother.services.interfaces.CategoryService;
-import com.enterprise.yetanother.services.interfaces.TicketService;*/
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,14 +56,6 @@ public class InitController {
     public String postLogin() {
         return "redirect:ticketsPage";
     }
-
-//    @RequestMapping(value = {"/ticketsPage"}, method = {RequestMethod.GET})
-//    public String toAllTicketsPage() {
-//        LOGGER.info("[toAllTicketsPage: GO /ticketsPage]");
-//        //ModelAndView modelAndView = new ModelAndView();
-//        //modelAndView.setViewName("AllTickets");
-//        return "AllTickets";
-//    }
 
     @RequestMapping(value = {"/ticketsPage"}, method = {RequestMethod.GET})
     public ModelAndView toAllTicketsPage() {
@@ -145,8 +127,7 @@ public class InitController {
         } else {
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("AllTickets");
-            return modelAndView;
-            //return toAllTicketsPage();
+            return modelAndView;            
         }
     }
 

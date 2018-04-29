@@ -1,7 +1,6 @@
 package com.enterprise.yetanother.dto.attachments;
 
 import com.enterprise.yetanother.entities.Ticket;
-//import com.enterprise.yetanother.entities.Ticket;
 
 import java.util.Objects;
 
