@@ -76,6 +76,12 @@
     </dependencyManagement>
 
     <dependencies>
+    
+        <!--<dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-runner</artifactId>
+            <version>9.4.8.v20171121</version>
+        </dependency>-->
         <!-- Spring MVC -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -324,7 +330,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.4.8.v20171121</version>
@@ -334,14 +340,14 @@
                         <contextPath>/</contextPath>
                     </webApp>
                 </configuration>
-            </plugin>
-            <plugin>
+            </plugin>-->
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.9.0</version>
                 <configuration>
-                    <!-- <targetJdk>9</targetJdk>-->
-                    <targetJdk>1.8</targetJdk>
+                    <targetJdk>9</targetJdk>-->
+                    <!-- <targetJdk>1.8</targetJdk>
                     <verbose>true</verbose>
                 </configuration>
                 <executions>
@@ -352,12 +358,12 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>            
+            </plugin>-->            
         </plugins>
         
     </build>
     
-    <reporting>
+    <!-- <reporting>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -365,5 +371,5 @@
                 <version>2.5</version>
             </plugin>
         </plugins>
-    </reporting>
+    </reporting>-->
 </project>
