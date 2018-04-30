@@ -1,1 +1,1 @@
-web: java -jar target/dependency/jetty-runner.jar target/YetAnother.war
+web: java -jar target/dependency/jetty-runner.jar --port $PORT target/YetAnother.war
