@@ -76,8 +76,15 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.github.jsimone/webapp-runner -->
+        <!-- <dependency>
+            <groupId>com.github.jsimone</groupId>
+            <artifactId>webapp-runner</artifactId>
+            <version>8.5.30.0</version>
+        </dependency>-->
+        
     
-        <!--<dependency>
+        <!-- <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-runner</artifactId>
             <version>9.4.8.v20171121</version>
@@ -318,7 +325,20 @@
                     <execution>
                         <id>copy-dependencies</id>
                         <phase>package</phase>
-                        <goals><goal>copy-dependencies</goal></goals>
+                        <goals>
+                            <goal>copy</goal>
+                            <!-- <goal>copy-dependencies</goal>-->
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.eclipse.jetty</groupId>
+                                    <artifactId>jetty-runner</artifactId>
+                                    <version>9.4.8.v20171121</version>
+                                    <destFileName>jetty-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
