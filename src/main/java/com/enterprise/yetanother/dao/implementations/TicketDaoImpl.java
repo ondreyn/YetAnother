@@ -117,16 +117,12 @@ public class TicketDaoImpl implements TicketDao {
     public void update(Ticket ticket) {
         Ticket toUpdate = findTicketById(ticket.getId());
         try {
-            if (ticket.getName() != null) {
-                if (!ticket.getName().isEmpty()) {
-                    toUpdate.setName(ticket.getName());
-                }
+        	if (ticket.getName() != null && !ticket.getName().isEmpty()) {                
+                toUpdate.setName(ticket.getName());                
             }
-            if (ticket.getDescription() != null) {
-                if (!ticket.getDescription().isEmpty()) {
-                    toUpdate.setDescription(ticket.getDescription());
-                }
-            }
+            if (ticket.getDescription() != null && !ticket.getDescription().isEmpty()) {                
+                toUpdate.setDescription(ticket.getDescription());                
+            }            
             if (ticket.getCategory() != null) {
                 toUpdate.setCategory(ticket.getCategory());
             }

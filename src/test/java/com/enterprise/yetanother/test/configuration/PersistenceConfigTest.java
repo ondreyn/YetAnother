@@ -83,7 +83,7 @@ public class PersistenceConfigTest {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setPackagesToScan(
-                "com.novikov.enterprise.yetanother.entities"
+                "com.enterprise.yetanother.entities"
         );
         sessionFactory.setHibernateProperties(hibernateProperties());
 

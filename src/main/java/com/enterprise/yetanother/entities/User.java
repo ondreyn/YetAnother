@@ -197,27 +197,27 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (id != null) {
-            if (!id.equals(user.id)) return false;
+        if (id != null && !id.equals(user.id)) {             
+            return false;
         }
-        if (firstName != null) {
-            if (!firstName.equals(user.firstName)) return false;
+        if (firstName != null && !firstName.equals(user.firstName)) {             
+            return false;
         }
-        if (lastName != null) {
-            if (!lastName.equals(user.lastName)) return false;
+        if (lastName != null && !lastName.equals(user.lastName)) {             
+            return false;
         }
-        if (position != null) {
-            if (!position.equals(user.position)) return false;
+        if (position != null && !position.equals(user.position)) {             
+            return false;
         }
-        if (phone != null) {
-            if (!phone.equals(user.phone)) return false;
+        if (phone != null && !phone.equals(user.phone)) {             
+            return false;
         }
-        if (role != null) {
-            if (!role.equals(user.role)) return false;
+        if (role != null && !role.equals(user.role)) {             
+            return false;
         }
-        if (email != null) {
-            if (!email.equals(user.email)) return false;
-        }
+        if (email != null && !email.equals(user.email)) {             
+            return false;
+        }        
         return address != null && address.equals(user.address);
     }
 

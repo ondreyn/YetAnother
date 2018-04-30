@@ -54,13 +54,11 @@ public class TicketValidatorImpl implements TicketValidator {
                     LOGGER.warn("[validate: wrong urgency!]");
                     return false;
                 }
-
-                if (description != null) {
-                    if (!description.matches(Properties.TEXT_REGEXP)) {
-                        LOGGER.warn("[validate: wrong description!]");
-                        return false;
-                    }
-                }
+                
+                if (description != null && !description.matches(Properties.TEXT_REGEXP)) {                    
+                    LOGGER.warn("[validate: wrong description!]");
+                    return false;                    
+                }                
                 return true;
             } catch (Exception e) {
                 LOGGER.error("[validate: Exception thrown!]", e);
@@ -103,12 +101,10 @@ public class TicketValidatorImpl implements TicketValidator {
                     LOGGER.warn("[validate: wrong urgency!]");
                     return false;
                 }
-                if (description != null) {
-                    if (!description.matches(Properties.TEXT_REGEXP)) {
-                        LOGGER.warn("[validate: wrong description!]");
-                        return false;
-                    }
-                }
+                if (description != null && !description.matches(Properties.TEXT_REGEXP)) {                    
+                    LOGGER.warn("[validate: wrong description!]");
+                    return false;                    
+                }                
                 LOGGER.info("[validate: success!]");
                 return true;
             } catch (Exception e) {

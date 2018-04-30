@@ -82,13 +82,11 @@ public class TicketServiceImpl implements TicketService {
             }
         }
 
-        if (comment != null) {
-            if (!comment.getText().isEmpty()) {
-                comment.setTicket(ticket);
-                comment.setUser(user);
-                ticket.getComments().add(comment);
-            }
-        }
+        if (comment != null && !comment.getText().isEmpty()) {            
+            comment.setTicket(ticket);
+            comment.setUser(user);
+            ticket.getComments().add(comment);            
+        }        
 
         List<History> histories = new ArrayList<>();
         History creationHistory = historyService
@@ -179,14 +177,12 @@ public class TicketServiceImpl implements TicketService {
             }
         }
 
-        if (attachments != null) {
-            if (!attachments.isEmpty()) {
-                History filesHistory = historyService.addHistoryOnFileAddition(
-                                       ticket.getOwner(), ticket, attachments);
-                if (filesHistory != null) {
-                    historyDao.create(filesHistory);
-                }
-            }
+        if (attachments != null && !attachments.isEmpty()) {            
+            History filesHistory = historyService.addHistoryOnFileAddition(
+                                   ticket.getOwner(), ticket, attachments);
+            if (filesHistory != null) {
+                historyDao.create(filesHistory);
+            }            
         }
 
         History editHistory = historyService
@@ -413,23 +409,21 @@ public class TicketServiceImpl implements TicketService {
             }
             return;
         }
-        if (action.equalsIgnoreCase("Done")) {
-            if (state == State.IN_PROGRESS) {
-                ticketDao.setState(ticket, State.DONE);
-                history = historyService.addHistoryOnStateChange(
-                        user, ticket, state, State.DONE);
-                historyDao.create(history);
+        if (action.equalsIgnoreCase("Done") && state == State.IN_PROGRESS) {            
+            ticketDao.setState(ticket, State.DONE);
+            history = historyService.addHistoryOnStateChange(
+                      user, ticket, state, State.DONE);
+            historyDao.create(history);
 
-                if (emailService.isEnabled()) {
-                	try {
-                		User creator = userService.getCreator(ticket);
-                		emailService.sendPersonalMail(ticket, creator,
-                            Properties.DONE_BY_ENGINEER);
-                	} catch (MessagingException e) {
-                		LOGGER.error("[doWithEngineer: MessagingException!]", e);
-                	}
-                }
-            }
+            if (emailService.isEnabled()) {
+               	try {
+               		User creator = userService.getCreator(ticket);
+               		emailService.sendPersonalMail(ticket, creator,
+               									  Properties.DONE_BY_ENGINEER);
+               	} catch (MessagingException e) {
+               		LOGGER.error("[doWithEngineer: MessagingException!]", e);
+               	}
+            }           
         }
     }
 }

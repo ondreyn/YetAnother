@@ -26,12 +26,10 @@ public class FeedbackValidatorImpl implements FeedbackValidator {
         }
 
         String text = feedbackDto.getText();
-        if (text != null) {
-            if (!text.matches(Properties.TEXT_REGEXP)) {
-                LOGGER.warn("[validate: text has errors!]");
-                return false;
-            }
-        }
+        if (text != null && !text.matches(Properties.TEXT_REGEXP)) {            
+            LOGGER.warn("[validate: text has errors!]");
+            return false;            
+        }        
 
         Integer rate = feedbackDto.getRate();
         if (rate != null) {
@@ -57,12 +55,10 @@ public class FeedbackValidatorImpl implements FeedbackValidator {
             LOGGER.warn("[validate: rate is null!]");
             return false;
         }
-
-        if (text != null) {
-            if (!text.matches(Properties.TEXT_REGEXP)) {
-                LOGGER.warn("[validate: text has errors!]");
-                return false;
-            }
+        
+        if (text != null && !text.matches(Properties.TEXT_REGEXP)) {            
+            LOGGER.warn("[validate: text has errors!]");
+            return false;            
         }
 
         int more = rate.compareTo(0);
