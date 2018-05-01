@@ -74,9 +74,9 @@ public class HistoryServiceImpl implements HistoryService {
 
                 String description = Commons.getDescriptionOnFilesAttach
                                      (fileNames, "File is attached");
-
-                //LOGGER.info("[addHistoryOnFileAddition: " + description + "]");
-                LOGGER.info("[addHistoryOnFileAddition: description = " + description + "]");
+                
+                LOGGER.info("[addHistoryOnFileAddition: description = " 
+                            + description + "]");
 
                 return new History.HistoryBuilder()
                         .action("File is attached")
@@ -108,9 +108,9 @@ public class HistoryServiceImpl implements HistoryService {
         if (!fileNames.isEmpty()) {
 
             String description = Commons.getDescriptionOnFilesAttach
-                                 (fileNames, "File is removed");
-            //LOGGER.info("addHistoryOnFileDeletion: " + description);
-            LOGGER.info("[addHistoryOnFileDeletion: description = " + description + "]");
+                                 (fileNames, "File is removed");            
+            LOGGER.info("[addHistoryOnFileDeletion: description = " 
+                        + description + "]");
 
             return new History.HistoryBuilder()
                     .action("File is removed")
@@ -203,7 +203,8 @@ public class HistoryServiceImpl implements HistoryService {
         String description = "Ticket Status is changed from " +
                              ticket.getState().toString() + " to " + newState
                              .toString();
-        LOGGER.info("[addHistoryOnTicketApproveAssign: description = " + description + "]");
+        LOGGER.info("[addHistoryOnTicketApproveAssign: description = " 
+                    + description + "]");
 
         return new History.HistoryBuilder()
                 .action("Ticket Status is changed")

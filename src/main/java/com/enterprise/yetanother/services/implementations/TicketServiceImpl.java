@@ -175,15 +175,7 @@ public class TicketServiceImpl implements TicketService {
             } catch (NullPointerException e) {
                 LOGGER.warn("[editTicket: NullPointerException thrown]");
             }
-        }
-
-        /*if (attachments != null && !attachments.isEmpty()) {            
-            History filesHistory = historyService.addHistoryOnFileAddition(
-                                   ticket.getOwner(), ticket, attachments);
-            if (filesHistory != null) {
-                historyDao.create(filesHistory);
-            }            
-        }*/
+        }        
         
         if (attachments != null) {
             if (!attachments.isEmpty()) {
@@ -302,9 +294,7 @@ public class TicketServiceImpl implements TicketService {
         History history;
 
         if (action.equalsIgnoreCase("Submit")) {
-            ticketDao.setState(ticket, State.NEW);
-            /*history = historyService.addHistoryOnStateChange(user,
-                    ticket, State.NEW, state);*/
+            ticketDao.setState(ticket, State.NEW);           
             history = historyService.addHistoryOnStateChange(user,
                     ticket, state, State.NEW);
             historyDao.create(history);
@@ -333,8 +323,7 @@ public class TicketServiceImpl implements TicketService {
 
         History history;
 
-        if (action.equalsIgnoreCase("Approve")) {
-            //ticketDao.approve(ticket, State.APPROVED, user);
+        if (action.equalsIgnoreCase("Approve")) {            
             history = historyService.addHistoryOnTicketApproveAssign(
                     ticket, State.APPROVED, user);
             ticketDao.approve(ticket, State.APPROVED, user);
@@ -353,9 +342,7 @@ public class TicketServiceImpl implements TicketService {
             return;
         }
 
-        if (action.equalsIgnoreCase("Decline")) {
-            //State prevState = ticket.getState();
-            //ticketDao.approve(ticket, State.DECLINED, user);
+        if (action.equalsIgnoreCase("Decline")) {            
             history = historyService.addHistoryOnTicketApproveAssign(
                     ticket, State.DECLINED, user);
             ticketDao.approve(ticket, State.DECLINED, user);
@@ -372,16 +359,14 @@ public class TicketServiceImpl implements TicketService {
             return;
         }
 
-        if (state == State.DRAFT || state == State.DECLINED) {
-            //ticketDao.approve(ticket, State.CANCELED, user);
+        if (state == State.DRAFT || state == State.DECLINED) {            
             history = historyService.addHistoryOnTicketApproveAssign(
                     ticket, State.CANCELED, user);
             ticketDao.approve(ticket, State.CANCELED, user);
             historyDao.create(history);
             return;
         }
-        if (state == State.NEW) {
-            //ticketDao.approve(ticket, State.CANCELED, user);
+        if (state == State.NEW) {            
             history = historyService.addHistoryOnTicketApproveAssign(
                     ticket, State.CANCELED, user);
             ticketDao.approve(ticket, State.CANCELED, user);
@@ -405,8 +390,7 @@ public class TicketServiceImpl implements TicketService {
         History history;
 
         if (action.equalsIgnoreCase("Assign to Me")) {
-            if (state == State.APPROVED) {
-                //ticketDao.assign(ticket, State.IN_PROGRESS, user);
+            if (state == State.APPROVED) {                
                 history = historyService.addHistoryOnTicketApproveAssign
                         (ticket, State.IN_PROGRESS, user);
                 ticketDao.assign(ticket, State.IN_PROGRESS, user);
@@ -415,8 +399,7 @@ public class TicketServiceImpl implements TicketService {
             return;
         }
         if (action.equalsIgnoreCase("Cancel")) {
-            if (state == State.APPROVED) {
-                //ticketDao.assign(ticket, State.CANCELED, user);
+            if (state == State.APPROVED) {                
                 history = historyService.addHistoryOnTicketApproveAssign
                         (ticket, State.CANCELED, user);
                 ticketDao.assign(ticket, State.CANCELED, user);
@@ -436,7 +419,6 @@ public class TicketServiceImpl implements TicketService {
             return;
         }
         if (action.equalsIgnoreCase("Done") && state == State.IN_PROGRESS) {            
-            //ticketDao.setState(ticket, State.DONE);
             history = historyService.addHistoryOnStateChange(
                       user, ticket, state, State.DONE);
             ticketDao.setState(ticket, State.DONE);
@@ -451,26 +433,6 @@ public class TicketServiceImpl implements TicketService {
                		LOGGER.error("[doWithEngineer: MessagingException!]", e);
                	}
             }           
-        }
-        
-        /*if (action.equalsIgnoreCase("Done")) {
-            if (state == State.IN_PROGRESS) {
-                //ticketDao.setState(ticket, State.DONE);
-                history = historyService.addHistoryOnStateChange(
-                          user, ticket, state, State.DONE);
-                ticketDao.setState(ticket, State.DONE);
-                historyDao.create(history);
-                
-                if (emailService.isEnabled()) {
-                    try {
-                        User creator = userService.getCreator(ticket);
-                        emailService.sendPersonalMail(ticket, creator,
-                                                      Properties.DONE_BY_ENGINEER);
-                    } catch (MessagingException e) {
-                        LOGGER.error("[doWithEngineer: MessagingException!]", e);
-                    }
-                }
-            }
-        }*/
+        }        
     }
 }
