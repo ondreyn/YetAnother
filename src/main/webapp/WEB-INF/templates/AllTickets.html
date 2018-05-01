@@ -222,7 +222,7 @@
                     <td>
                         <!--[ROLE_EMPLOYEE]-->
                         <select class="btn btn-default greenW_button"
-                                id="action" name="action"
+                                id="action{{ticket.id}}" name="action"
                                 ng-click="$ctrl.editTicketState(ticket.id)"
                                 ng-if="$ctrl.currentRole == '[ROLE_EMPLOYEE]'
                                 && (ticket.state == 'DRAFT'
@@ -233,7 +233,7 @@
 
                         <!--[ROLE_MANAGER]-->
                         <select class="btn btn-default greenW_button"
-                                id="action" name="action"
+                                id="action{{ticket.id}}" name="action"
                                 ng-click="$ctrl.editTicketState(ticket.id)"
                                 ng-if="$ctrl.currentRole == '[ROLE_MANAGER]'
                                 && (ticket.state == 'DRAFT'
@@ -250,7 +250,7 @@
 
                         <!--[ROLE_ENGINEER]-->
                         <select class="btn btn-default greenW_button"
-                                id="action" name="action"
+                                id="action{{ticket.id}}" name="action"
                                 ng-click="$ctrl.editTicketState(ticket.id)"
                                 ng-if="$ctrl.currentRole == '[ROLE_ENGINEER]'
                                 && (ticket.state == 'APPROVED')">
@@ -268,11 +268,15 @@
 
                         <input ng-if="ticket.state == 'IN_PROGRESS'
                                && $ctrl.currentRole == '[ROLE_ENGINEER]'"
-                               type="hidden" id="action" name="action"
+                               type="hidden" id="action{{ticket.id}}" name="action"
                                value="{{$ctrl.engineerButtonsIN[0]}}"/>
 
-                        <input type="hidden" id="state" name="state"
+                        <input type="hidden" id="state{{ticket.id}}" name="state"
                                value="{{ticket.state}}"/>
+                        <!--<input type="hidden" id="state" name="state"
+                               value="{{ticket.state}}"/>-->
+                        <!--<label value="{{ticket.state}}">{{ticket.state}}</label>-->
+                        <!--<p>{{ticket.state}}</p>-->
 
                         <!--[ROLE_EMPLOYEE]-->
                         <a class="btn btn-default greenW_button"
@@ -338,7 +342,7 @@
                     <td>
                         <!--[ROLE_MANAGER]-->
                         <select class="btn btn-default greenW_button"
-                                id="action" name="action"
+                                id="action{{ticket.id}}" name="action"
                                 ng-click="$ctrl.editTicketState(ticket.id)"
                                 ng-if="$ctrl.currentRole == '[ROLE_MANAGER]'
                                 && (ticket.state == 'DRAFT'
@@ -353,7 +357,7 @@
                                     ng-repeat="button in $ctrl.managerButtonsNE">{{button}}</option>
                         </select>
 
-                        <input type="hidden" id="state" name="state"
+                        <input type="hidden" id="state{{ticket.id}}" name="state"
                                value="{{ticket.state}}"/>
 
                         <!--[ROLE_MANAGER]-->
@@ -393,7 +397,7 @@
                     <td>
                         <!--[ROLE_ENGINEER]-->
                         <select class="btn btn-default greenW_button"
-                                id="action" name="action"
+                                id="action{{ticket.id}}" name="action"
                                 ng-click="$ctrl.editTicketState(ticket.id)"
                                 ng-if="$ctrl.currentRole == '[ROLE_ENGINEER]'
                                 && (ticket.state == 'APPROVED')">
@@ -411,10 +415,10 @@
 
                         <input ng-if="ticket.state == 'IN_PROGRESS'
                                && $ctrl.currentRole == '[ROLE_ENGINEER]'"
-                               type="hidden" id="action" name="action"
+                               type="hidden" id="action{{ticket.id}}" name="action"
                                value="{{$ctrl.engineerButtonsIN[0]}}"/>
 
-                        <input type="hidden" id="state" name="state"
+                        <input type="hidden" id="state{{ticket.id}}" name="state"
                                value="{{ticket.state}}"/>
 
                         <!--[ROLE_ENGINEER]-->

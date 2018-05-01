@@ -57,6 +57,8 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public History addHistoryOnFileAddition(User user, Ticket ticket,
                                             List<Attachment> attachments) {
+        LOGGER.info("[addHistoryOnFileAddition: GO]");
+        
         boolean check = Commons.isNulls(user, ticket, attachments);
         if (check) {
             LOGGER.warn("[addHistoryOnFileAddition: null/s in incoming args!]");
@@ -73,7 +75,8 @@ public class HistoryServiceImpl implements HistoryService {
                 String description = Commons.getDescriptionOnFilesAttach
                                      (fileNames, "File is attached");
 
-                LOGGER.info("[addHistoryOnFileAddition: " + description + "]");
+                //LOGGER.info("[addHistoryOnFileAddition: " + description + "]");
+                LOGGER.info("[addHistoryOnFileAddition: description = " + description + "]");
 
                 return new History.HistoryBuilder()
                         .action("File is attached")
@@ -94,6 +97,7 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public History addHistoryOnFileDeletion(User user, Ticket ticket,
                                             List<String> fileNames) {
+        LOGGER.info("[addHistoryOnFileDeletion: GO]");
 
         boolean check = Commons.isNulls(user, ticket, fileNames);
         if (check) {
@@ -105,7 +109,8 @@ public class HistoryServiceImpl implements HistoryService {
 
             String description = Commons.getDescriptionOnFilesAttach
                                  (fileNames, "File is removed");
-            LOGGER.info("addHistoryOnFileDeletion: " + description);
+            //LOGGER.info("addHistoryOnFileDeletion: " + description);
+            LOGGER.info("[addHistoryOnFileDeletion: description = " + description + "]");
 
             return new History.HistoryBuilder()
                     .action("File is removed")
@@ -123,6 +128,7 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public History addHistoryOnStateChange(User user, Ticket ticket,
                                            State prevState, State newState) {
+        LOGGER.info("[addHistoryOnStateChange: GO]");
 
         boolean check = Commons.isNulls(user, ticket, prevState, newState);
         if (check) {
@@ -133,6 +139,7 @@ public class HistoryServiceImpl implements HistoryService {
         String description = "Ticket Status is changed from "
                              + prevState.toString() + " to " + newState
                              .toString();
+        LOGGER.info("[addHistoryOnStateChange: description = " + description + "]");
 
         return new History.HistoryBuilder()
                 .action("Ticket Status is changed")
@@ -145,6 +152,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public History addHistoryOnTicketEdit(User user, Ticket ticket) {
+        LOGGER.info("[addHistoryOnTicketEdit: GO]");
 
         boolean check = Commons.isNulls(user, ticket);
         if (check) {
@@ -163,6 +171,7 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public History addHistoryOnTicketCreation(User user, Ticket ticket) {
+        LOGGER.info("[addHistoryOnTicketCreation: GO]");
 
         boolean check = Commons.isNulls(user, ticket);
         if (check) {
@@ -182,6 +191,7 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public History addHistoryOnTicketApproveAssign(Ticket ticket,
                                                    State newState, User user) {
+        LOGGER.info("[addHistoryOnTicketApproveAssign: GO]");
 
         boolean check = Commons.isNulls(user, ticket, newState);
         if (check) {
@@ -193,6 +203,7 @@ public class HistoryServiceImpl implements HistoryService {
         String description = "Ticket Status is changed from " +
                              ticket.getState().toString() + " to " + newState
                              .toString();
+        LOGGER.info("[addHistoryOnTicketApproveAssign: description = " + description + "]");
 
         return new History.HistoryBuilder()
                 .action("Ticket Status is changed")

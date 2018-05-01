@@ -131,8 +131,10 @@ angular.module('AllTickets')
                 return;
             }
 
-            $scope.action = $("#action").val();
-            $scope.state = $("#state").val();
+            $scope.action = $("#action" + id).val();
+            //$scope.action = $("#action").val();
+            $scope.state = $("#state" + id).val();
+            //$scope.state = $("#state").val();
 
             var data = [{
                 'action': $scope.action, 'state': $scope.state

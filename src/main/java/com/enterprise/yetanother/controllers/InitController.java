@@ -59,7 +59,7 @@ public class InitController {
 
     @RequestMapping(value = {"/ticketsPage"}, method = {RequestMethod.GET})
     public ModelAndView toAllTicketsPage() {
-        LOGGER.info("[toAllTicketsPage: GO /ticketsPage]");
+        LOGGER.info("[toAllTicketsPage: GO /ticketsPage]\n");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("AllTickets");
         return modelAndView;
