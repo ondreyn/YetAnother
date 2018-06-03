@@ -21,9 +21,71 @@
     <script src="/resources/js/login/controllers/login-controller.js"></script>
 </head>
 <body ng-controller="LoginController as $ctrl">
+<!--<script>
+    function HintShow() {
+        $("#Popup").show();
+    }
+</script>-->
 
 <p style="height: 5em"></p>
 
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-1" id="Hint">
+        <button class="btn btn-default common_button"
+                ng-click="$ctrl.hintShow()">
+            Hint
+        </button>
+        <!--<p ng-click="$ctrl.hintShow()">Login Hint</p>-->
+    </div>
+    <div class="col-md-10"></div>
+</div>
+<!--<div>-->
+<div class="popup" id="Popup">
+    <!--<div class="col-md-1"></div>
+    <div class="col-md-1">
+        <p ng-click="$ctrl.hintShow()">Login Hint</p>
+    </div>-->
+    <!--<div class="col-md-1"><p onclick="HintShow();">Login Hint</p></div>-->
+    <div class="popup-content">
+        <p>As a user or manager Create tickets, track the progress of the task
+            related to it.</p>
+        <p>Transmit a ticket to different statuses</p>
+        <p>Track any activity related to a ticket</p>
+        <p>Provide feedback for an engineer regarding your ticket</p>
+        <p>User roles shown below, one password for all: P@ssword1</p>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Role</th>
+                    <th>Accepted user names</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>user</td>
+                    <td>user1@yopmail.com, user2@yopmail.com</td>
+                </tr>
+                <tr>
+                    <td>manager</td>
+                    <td>manager1@yopmail.com, manager2@yopmail.com</td>
+                </tr>
+                <tr>
+                    <td>engineer</td>
+                    <td>engineer1@yopmail.com, engineer2@yopmail.com</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-default common_button"
+                ng-click="$ctrl.hintHide()">
+            Close popup
+        </button>
+    </div>
+    <!--<div class="col-md-5"></div>-->
+</div>
+<!--</div>-->
+
+<div id="LoginDiv">
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
@@ -113,6 +175,7 @@
         </form>
     </div>
     <div class="col-md-2"></div>
+</div>
 </div>
 
 </body>

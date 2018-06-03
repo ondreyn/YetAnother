@@ -31,4 +31,18 @@ angular.module('LoginModule')
             var LoginForm = document.getElementById('LoginForm');
             LoginForm.submit();
         };
+
+        $scope.hintShow = function hintShow() {
+            $("#Popup").show();
+            $("#LoginDiv").hide();
+            $("#Hint").hide();
+        }
+        self.hintShow = $scope.hintShow;
+
+        $scope.hintHide = function hintHide() {
+            $("#Popup").hide();
+            $("#LoginDiv").show();
+            $("#Hint").show();
+        }
+        self.hintHide = $scope.hintHide;
     }]);
