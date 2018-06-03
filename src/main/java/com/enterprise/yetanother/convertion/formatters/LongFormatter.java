@@ -17,7 +17,7 @@ public class LongFormatter implements Formatter<Long> {
 
     @Override
     public Long parse(String s, Locale locale) {
-        LOGGER.info("LongFormatter parse s: " + s);
+        LOGGER.info(String.format("LongFormatter parse s: %s", s));
 
         if (s.equalsIgnoreCase("{{attachment.id}}")) {
             return 0L;

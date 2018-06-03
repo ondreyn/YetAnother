@@ -65,9 +65,10 @@ public class CreateTicketController {
             @ModelAttribute("TicketModel") TicketDto ticketDto,
             @ModelAttribute("CommentModel") CommentDto commentDto
     ) {
-        LOGGER.info("[getTicketModels: \nUserDto has: " + userDto
-                    .toString() + "\nTicketDto has: " + ticketDto.toString()
-                    + "\nCommentDto has: " + commentDto.toString() + "]");
+        LOGGER.info(String.format("[getTicketModels: \nUserDto has: %s\n" +
+                    "TicketDto has: %s\nCommentDto has: %s]", userDto,
+                    ticketDto, commentDto));
+
         try {
             this.userDto = userDto;
             this.user = userDtoConverter.dtoToEntity(userDto);
@@ -126,11 +127,10 @@ public class CreateTicketController {
     }
 
     private void createTicket() {
-        LOGGER.info("[createTicket: we have: \nticketDto: " + this.ticketDto
-                    + "\nfilesWorkedOut: " + this.filesWorkedOut +
-                    "\ncommentDto: " + this.commentDto + "\nuserDto: " +
-                    this.userDto + "\nuser: " + this.user + "\nticket: "
-                    + this.ticket + "]");
+        LOGGER.info(String.format("[createTicket: we have: \nticketDto: %s" +
+                    "\nfilesWorkedOut: %b\ncommentDto: %s\nuserDto: %s\n" +
+                    "user: %s\nticket: %s]", this.ticketDto, this.filesWorkedOut,
+                    this.commentDto, this.userDto, this.user, this.ticket));
 
         if (this.ticketDto != null
                 && this.filesWorkedOut

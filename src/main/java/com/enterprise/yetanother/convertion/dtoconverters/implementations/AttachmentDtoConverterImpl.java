@@ -131,7 +131,7 @@ public class AttachmentDtoConverterImpl implements AttachmentDtoConverter {
                          attachments.add(attachment);
                      }
                  }
-                 LOGGER.info("[transform: attachments " + attachments + "]");
+                 LOGGER.info(String.format("[transform: attachments %s]", attachments));
                  return attachments;
              } else {
                  LOGGER.warn("[transform: there is no attachments]");

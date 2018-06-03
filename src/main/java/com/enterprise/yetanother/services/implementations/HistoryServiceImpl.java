@@ -69,14 +69,14 @@ public class HistoryServiceImpl implements HistoryService {
 
         if (fileNames != null) {
             if (!fileNames.isEmpty()) {
-                LOGGER.info("[addHistoryOnFileAddition: " + fileNames.size()
-                            + " files]");
+                LOGGER.info(String.format("[addHistoryOnFileAddition: %d " +
+                            "files]", fileNames.size()));
 
                 String description = Commons.getDescriptionOnFilesAttach
                                      (fileNames, "File is attached");
                 
-                LOGGER.info("[addHistoryOnFileAddition: description = " 
-                            + description + "]");
+                LOGGER.info(String.format("[addHistoryOnFileAddition: " +
+                            "description = %s]", description));
 
                 return new History.HistoryBuilder()
                         .action("File is attached")
@@ -109,8 +109,8 @@ public class HistoryServiceImpl implements HistoryService {
 
             String description = Commons.getDescriptionOnFilesAttach
                                  (fileNames, "File is removed");            
-            LOGGER.info("[addHistoryOnFileDeletion: description = " 
-                        + description + "]");
+            LOGGER.info(String.format("[addHistoryOnFileDeletion: description" +
+                        " = %s]", description));
 
             return new History.HistoryBuilder()
                     .action("File is removed")
@@ -136,10 +136,11 @@ public class HistoryServiceImpl implements HistoryService {
             return null;
         }
 
-        String description = "Ticket Status is changed from "
-                             + prevState.toString() + " to " + newState
-                             .toString();
-        LOGGER.info("[addHistoryOnStateChange: description = " + description + "]");
+        String description = String.format("Ticket Status is changed from %s " +
+                                           "to %s", prevState, newState);
+
+        LOGGER.info(String.format("[addHistoryOnStateChange: description = " +
+                    "%s]", description));
 
         return new History.HistoryBuilder()
                 .action("Ticket Status is changed")
@@ -200,11 +201,10 @@ public class HistoryServiceImpl implements HistoryService {
             return null;
         }
 
-        String description = "Ticket Status is changed from " +
-                             ticket.getState().toString() + " to " + newState
-                             .toString();
-        LOGGER.info("[addHistoryOnTicketApproveAssign: description = " 
-                    + description + "]");
+        String description = String.format("Ticket Status is changed from %s " +
+                                           "to %s", ticket.getState(), newState);
+        LOGGER.info(String.format("[addHistoryOnTicketApproveAssign: " +
+                                  "description = %s]", description));
 
         return new History.HistoryBuilder()
                 .action("Ticket Status is changed")

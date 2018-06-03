@@ -19,7 +19,8 @@ public class DateFormatter implements Formatter<Date> {
 
     @Override
     public Date parse(String s, Locale locale) {
-        LOGGER.info("[parse: " + s + "]");
+        LOGGER.info(String.format("[parse: %s]", s));
+
         Calendar calendar = Calendar.getInstance();
         String[] results;
 

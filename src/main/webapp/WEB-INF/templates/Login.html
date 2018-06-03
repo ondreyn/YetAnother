@@ -21,11 +21,6 @@
     <script src="/resources/js/login/controllers/login-controller.js"></script>
 </head>
 <body ng-controller="LoginController as $ctrl">
-<!--<script>
-    function HintShow() {
-        $("#Popup").show();
-    }
-</script>-->
 
 <p style="height: 5em"></p>
 
@@ -36,17 +31,11 @@
                 ng-click="$ctrl.hintShow()">
             Hint
         </button>
-        <!--<p ng-click="$ctrl.hintShow()">Login Hint</p>-->
     </div>
     <div class="col-md-10"></div>
 </div>
-<!--<div>-->
+
 <div class="popup" id="Popup">
-    <!--<div class="col-md-1"></div>
-    <div class="col-md-1">
-        <p ng-click="$ctrl.hintShow()">Login Hint</p>
-    </div>-->
-    <!--<div class="col-md-1"><p onclick="HintShow();">Login Hint</p></div>-->
     <div class="popup-content">
         <p>As a user or manager Create tickets, track the progress of the task
             related to it.</p>
@@ -81,101 +70,99 @@
             Close popup
         </button>
     </div>
-    <!--<div class="col-md-5"></div>-->
 </div>
-<!--</div>-->
 
 <div id="LoginDiv">
-<div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <h2>Login to the Help Desk</h2>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h2>Login to the Help Desk</h2>
+        </div>
+        <div class="col-md-4"></div>
     </div>
-    <div class="col-md-4"></div>
-</div>
 
-<div class="row">
-    <div class="col-md-4"></div>
-    <div th:if="${param.error != null}"
-         class="col-md-4 alert alert-danger"
-         role="alert">
-        Please make sure you are using a valid email or password
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div th:if="${param.error != null}"
+             class="col-md-4 alert alert-danger"
+             role="alert">
+            Please make sure you are using a valid email or password
+        </div>
+        <div th:if="${param.error == null}"
+             class="col-md-4 height15">
+            <p></p>
+        </div>
     </div>
-    <div th:if="${param.error == null}"
-         class="col-md-4 height15">
-        <p></p>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-7 form-group">
-        <form id="LoginForm" name="LoginForm"
-              th:action="@{/}" method="POST" role="form">
-            <div class="row">
-                <div class="col-md-2">
-                    <label class="control-label font_larger"
-                           for="username">
-                        User Name
-                    </label>
-                </div>
-                <div class="col-md-6">
-                    <input type="text" id="username"
-                           class="form-control fullwidth"
-                           ng-model="username"
-                           name="username" autofocus="autofocus"
-                           ng-maxlength="100"
-                           ng-pattern="loginRegexp"
-                           required/>
-                </div>
-                <div class="col-md-4">
-                    <div class="alert alert-danger" role="alert"
-                         ng-if="LoginForm.username.$error.required">
-                        Please fill out the required field.
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-7 form-group">
+            <form id="LoginForm" name="LoginForm"
+                  th:action="@{/}" method="POST" role="form">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label font_larger"
+                               for="username">
+                            User Name
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" id="username"
+                               class="form-control fullwidth"
+                               ng-model="username"
+                               name="username" autofocus="autofocus"
+                               ng-maxlength="100"
+                               ng-pattern="loginRegexp"
+                               required/>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="alert alert-danger" role="alert"
+                             ng-if="LoginForm.username.$error.required">
+                            Please fill out the required field.
+                        </div>
                     </div>
                 </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-2">
-                    <label class="control-label font_larger" for="password">
-                        Password
-                    </label>
-                </div>
-                <div class="col-md-6">
-                    <input type="password" id="password"
-                           ng-model="password"
-                           class="form-control fullwidth"
-                           name="password" ng-maxlength="20"
-                           ng-minlength="6" required
-                           ng-pattern="passwordRegexp"
-                           ng-keypress="$ctrl.pressEnter($event)"/>
-                </div>
-                <div class="col-md-4">
-                    <div class="alert alert-danger" role="alert"
-                         ng-if="LoginForm.password.$error.required">
-                        Please fill out the required field.
+                <br>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="control-label font_larger" for="password">
+                            Password
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="password" id="password"
+                               ng-model="password"
+                               class="form-control fullwidth"
+                               name="password" ng-maxlength="20"
+                               ng-minlength="6" required
+                               ng-pattern="passwordRegexp"
+                               ng-keypress="$ctrl.pressEnter($event)"/>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="alert alert-danger" role="alert"
+                             ng-if="LoginForm.password.$error.required">
+                            Please fill out the required field.
+                        </div>
                     </div>
                 </div>
-            </div>
-            <input type="hidden" name="${_csrf.parameterName}"
-                   value="${_csrf.token}"/>
-            <br>
-            <div class="row">
-                <div class="col-md-5"></div>
-                <div class="col-md-3">
-                    <button ng-click="$ctrl.checkInput()"
-                            type="button"
-                            class="btn btn-default form-control common_button">
-                        Enter
-                    </button>
+                <input type="hidden" name="${_csrf.parameterName}"
+                       value="${_csrf.token}"/>
+                <br>
+                <div class="row">
+                    <div class="col-md-5"></div>
+                    <div class="col-md-3">
+                        <button ng-click="$ctrl.checkInput()"
+                                type="button"
+                                class="btn btn-default form-control common_button">
+                            Enter
+                        </button>
+                    </div>
+                    <div class="col-md-4"></div>
                 </div>
-                <div class="col-md-4"></div>
-            </div>
-        </form>
+            </form>
+        </div>
+        <div class="col-md-2"></div>
     </div>
-    <div class="col-md-2"></div>
-</div>
 </div>
 
 </body>

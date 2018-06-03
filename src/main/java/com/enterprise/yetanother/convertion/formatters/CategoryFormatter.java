@@ -19,7 +19,7 @@ public class CategoryFormatter implements Formatter<Category> {
 
     @Override
     public Category parse(String s, Locale locale) {
-        LOGGER.info("CategoryFormatter parse s: " + s);
+        LOGGER.info(String.format("CategoryFormatter parse s: %s", s));
         Category result = new Category();
         result.setName(s);
         return result;

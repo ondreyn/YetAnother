@@ -19,7 +19,7 @@ public class UrgencyFormatter implements Formatter<Urgency> {
 
     @Override
     public Urgency parse(String s, Locale locale) {
-        LOGGER.info("UrgencyFormatter parse s: " + s);
+        LOGGER.info(String.format("UrgencyFormatter parse s: %s", s));
         return Urgency.valueOf(s);
     }
 

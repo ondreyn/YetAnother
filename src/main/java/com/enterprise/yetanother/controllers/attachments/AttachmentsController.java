@@ -56,8 +56,8 @@ public class AttachmentsController {
                                  @PathVariable("attId") Long attachmentId) {
 
         if (ticketId != null && attachmentId != null) {
-            LOGGER.info("[deleteAttachment:\ngot ticket ID: " + ticketId
-                        + "\ngot attachment IDs: " + attachmentId + "]");
+            LOGGER.info(String.format("[deleteAttachment:\ngot ticket ID: " +
+                        "%d\ngot attachment IDs: %d]", ticketId, attachmentId));
 
             attachmentsService.delete(ticketId, attachmentId);
         }
@@ -69,8 +69,9 @@ public class AttachmentsController {
                                    HttpServletResponse response) {
 
         if (ticketId != null && attachmentId != null) {
-            LOGGER.info("[downloadAttachment: attachmentsId " + attachmentId
-                        + ", ticketId " + ticketId + "]");
+            LOGGER.info(String.format("[downloadAttachment: attachmentsId %d," +
+                        " ticketId %d]", attachmentId, ticketId));
+
             attachmentsService.download(response, ticketId, attachmentId);
         }
     }

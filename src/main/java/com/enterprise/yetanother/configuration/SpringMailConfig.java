@@ -71,7 +71,7 @@ public class SpringMailConfig implements ApplicationContextAware {
                                 .getResource(JAVA_MAIL_FILE).getInputStream());
         	mailSender.setJavaMailProperties(javaMailProperties);
         } catch(Exception e) {
-        	LOGGER.warn("[mailSender(): " + e.getMessage() + "]");
+        	LOGGER.warn(String.format("[mailSender(): %s]", e.getMessage()));
         }
 
         return mailSender;
@@ -93,7 +93,7 @@ public class SpringMailConfig implements ApplicationContextAware {
     }
 
     @Bean(name = "emailEngine")
-    public SpringTemplateEngine templateEngine(){
+    public SpringTemplateEngine templateEngine() {
 
         LOGGER.info("[SpringTemplateEngine 'emailEngine' Bean]");
 

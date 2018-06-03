@@ -106,8 +106,9 @@ public class TicketServiceImpl implements TicketService {
 
         try {
             ticketDao.create(ticket);
-            LOGGER.info("[createTicket: Ticket created id: " + ticket.getId()
-                        + "]");
+            LOGGER.info(String.format("[createTicket: Ticket created id: %d]",
+                                      ticket.getId()));
+
             if (emailService.isEnabled() &&	ticket.getState() == State.NEW) {
                 try {
                     List<User> managers = userService.getAllManagers();
@@ -195,8 +196,8 @@ public class TicketServiceImpl implements TicketService {
 
         try {
             ticketDao.update(ticket);
-            LOGGER.info("[editTicket: edited Ticket with ID: " + ticket.getId
-                    () + "]");
+            LOGGER.info(String.format("[editTicket: edited Ticket with ID: %d]",
+                                      ticket.getId()));
 
             if (emailService.isEnabled() &&	ticket.getState().equals(State.NEW)) {
                 try {
@@ -243,8 +244,9 @@ public class TicketServiceImpl implements TicketService {
             return;
         }
 
-        LOGGER.info("[editState: got: Id=" + ticket_id + ", action="
-                    + action + ", state=" + state.toString() + ", user=" + email +"]");
+        LOGGER.info(String.format("[editState: got: Id=%d, action=%s, " +
+                    "state=%s, user=%s]", ticket_id, action, state, email));
+
         User user = userDao.findByEmail(email);
         Ticket ticket = ticketDao.findTicketById(ticket_id);
 
@@ -296,13 +298,13 @@ public class TicketServiceImpl implements TicketService {
         if (action.equalsIgnoreCase("Submit")) {
             ticketDao.setState(ticket, State.NEW);           
             history = historyService.addHistoryOnStateChange(user,
-                    ticket, state, State.NEW);
+                                     ticket, state, State.NEW);
             historyDao.create(history);
             if (emailService.isEnabled()) {
             	try {
             		List<User> managers = userService.getAllManagers();
             		emailService.sendBroadcastMail(ticket, managers,
-                        Properties.NEW_TICKET);
+                                                   Properties.NEW_TICKET);
             	} catch (MessagingException e) {
             		LOGGER.error("[doWithEmployeeAndManager: MessagingException!]", e);
             	}
@@ -311,8 +313,8 @@ public class TicketServiceImpl implements TicketService {
         }
         if (action.equalsIgnoreCase("Cancel")) {
             ticketDao.setState(ticket, State.CANCELED);
-            history = historyService.addHistoryOnStateChange(user,
-                    ticket, state, State.CANCELED);
+            history = historyService.addHistoryOnStateChange(user, ticket,
+                                     state, State.CANCELED);
             historyDao.create(history);
         }
     }
@@ -325,16 +327,17 @@ public class TicketServiceImpl implements TicketService {
 
         if (action.equalsIgnoreCase("Approve")) {            
             history = historyService.addHistoryOnTicketApproveAssign(
-                    ticket, State.APPROVED, user);
+                                     ticket, State.APPROVED, user);
             ticketDao.approve(ticket, State.APPROVED, user);
             historyDao.create(history);
+
             if (emailService.isEnabled()) {
             	try {
             		List<User> engineers = userService.getAllEngineers();
             		User creator = userService.getCreator(ticket);
             		engineers.add(creator);
             		emailService.sendBroadcastMail(ticket, engineers,
-                        Properties.APPROVED_BY_MANAGER);
+                                 Properties.APPROVED_BY_MANAGER);
             	} catch (MessagingException e) {
             		LOGGER.error("[doWithManager: MessagingException!]", e);
             	}
@@ -344,14 +347,15 @@ public class TicketServiceImpl implements TicketService {
 
         if (action.equalsIgnoreCase("Decline")) {            
             history = historyService.addHistoryOnTicketApproveAssign(
-                    ticket, State.DECLINED, user);
+                                     ticket, State.DECLINED, user);
             ticketDao.approve(ticket, State.DECLINED, user);
             historyDao.create(history);
+
             if (emailService.isEnabled()) {
             	try {
             		User creator = userService.getCreator(ticket);
             		emailService.sendPersonalMail(ticket, creator,
-                        Properties.DECLINED_BY_MANAGER);
+                                 Properties.DECLINED_BY_MANAGER);
             	} catch (MessagingException e) {
             		LOGGER.error("[doWithManager: MessagingException!]", e);
             	}
@@ -361,21 +365,21 @@ public class TicketServiceImpl implements TicketService {
 
         if (state == State.DRAFT || state == State.DECLINED) {            
             history = historyService.addHistoryOnTicketApproveAssign(
-                    ticket, State.CANCELED, user);
+                                     ticket, State.CANCELED, user);
             ticketDao.approve(ticket, State.CANCELED, user);
             historyDao.create(history);
             return;
         }
         if (state == State.NEW) {            
             history = historyService.addHistoryOnTicketApproveAssign(
-                    ticket, State.CANCELED, user);
+                                     ticket, State.CANCELED, user);
             ticketDao.approve(ticket, State.CANCELED, user);
             historyDao.create(history);
             if (emailService.isEnabled()) {
             	try {
             		User creator = userService.getCreator(ticket);
             		emailService.sendPersonalMail(ticket, creator,
-                        Properties.CANCELLED_BY_MANAGER);
+                                 Properties.CANCELLED_BY_MANAGER);
             	} catch (MessagingException e) {
             		LOGGER.error("[doWithManager: MessagingException!]", e);
             	}
@@ -392,7 +396,7 @@ public class TicketServiceImpl implements TicketService {
         if (action.equalsIgnoreCase("Assign to Me")) {
             if (state == State.APPROVED) {                
                 history = historyService.addHistoryOnTicketApproveAssign
-                        (ticket, State.IN_PROGRESS, user);
+                                         (ticket, State.IN_PROGRESS, user);
                 ticketDao.assign(ticket, State.IN_PROGRESS, user);
                 historyDao.create(history);
             }
@@ -401,16 +405,17 @@ public class TicketServiceImpl implements TicketService {
         if (action.equalsIgnoreCase("Cancel")) {
             if (state == State.APPROVED) {                
                 history = historyService.addHistoryOnTicketApproveAssign
-                        (ticket, State.CANCELED, user);
+                                         (ticket, State.CANCELED, user);
                 ticketDao.assign(ticket, State.CANCELED, user);
                 historyDao.create(history);
+
                 if (emailService.isEnabled()) {
                 	try {
                 		List<User> recipients = new ArrayList<>();
                 		recipients.add(userService.getApprover(ticket));
                 		recipients.add(userService.getCreator(ticket));
                 		emailService.sendBroadcastMail(ticket, recipients,
-                            Properties.CANCELLED_BY_ENGINEER);
+                                     Properties.CANCELLED_BY_ENGINEER);
                 	} catch (MessagingException e) {
                 		LOGGER.error("[doWithEngineer: MessagingException!]", e);
                 	}
@@ -418,7 +423,8 @@ public class TicketServiceImpl implements TicketService {
             }
             return;
         }
-        if (action.equalsIgnoreCase("Done") && state == State.IN_PROGRESS) {            
+        if (action.equalsIgnoreCase("Done")
+                   && state == State.IN_PROGRESS) {
             history = historyService.addHistoryOnStateChange(
                       user, ticket, state, State.DONE);
             ticketDao.setState(ticket, State.DONE);

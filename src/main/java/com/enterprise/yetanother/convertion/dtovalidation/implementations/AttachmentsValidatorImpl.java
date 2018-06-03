@@ -20,9 +20,10 @@ public class AttachmentsValidatorImpl implements AttachmentsValidator {
     @Override
     public boolean validate(MultipartFile file) {
         if (file.getSize() > Properties.FILE_SIZE_LIMIT) {
-            LOGGER.warn("[AttachmentsValidatorImpl: The size of attached file" +
-                        " should not be greater than " +
-                        Properties.FILE_SIZE_LIMIT_MB + " Mb.]");
+            LOGGER.warn(String.format("[AttachmentsValidatorImpl: The size of" +
+                        " attached file should not be greater than %d Mb.]",
+                        Properties.FILE_SIZE_LIMIT_MB));
+
             return false;
         }
         for (String type: Properties.FILE_FORMATS) {
@@ -30,8 +31,9 @@ public class AttachmentsValidatorImpl implements AttachmentsValidator {
                 return true;
             }
         }
-        LOGGER.warn("[AttachmentsValidatorImpl: The selected file type is not" +
-                    " allowed: " + file.getContentType() + "!]");
+        LOGGER.warn(String.format("[AttachmentsValidatorImpl: The selected " +
+                    "file type is not allowed: %s", file.getContentType()));
+
         return false;
     }
 

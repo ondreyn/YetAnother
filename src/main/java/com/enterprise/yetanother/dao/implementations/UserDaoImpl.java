@@ -56,14 +56,15 @@ public class UserDaoImpl implements UserDao {
         if (id != null) {
             try {
                 String hql = "SELECT e FROM com.enterprise.yetanother" +
-                             ".entities.User e WHERE e.id = " + id;
+                             ".entities.User e WHERE e.id = :id";
                 Query<User> query = sessionFactory.getCurrentSession()
                                     .createQuery(hql, User.class);
+                query.setParameter("id", id);
                 User result = query.uniqueResult();
 
                 if (result != null) {
-                    LOGGER.info("[findById: found user with id: " +
-                                result.getId() + "]");
+                    LOGGER.info(String.format("[findById: found user with id:" +
+                                " %d]", result.getId()));
                 } else {
                     LOGGER.warn("[findById: nothing found]");
                 }
@@ -91,8 +92,8 @@ public class UserDaoImpl implements UserDao {
                 User result = query.uniqueResult();
 
                 if (result != null) {
-                    LOGGER.info("[findByEmail: found user email: " +
-                                result.getEmail() + "]");
+                    LOGGER.info(String.format("[findByEmail: found user " +
+                                "email: %s]", result.getEmail()));
                 } else {
                     LOGGER.warn("[findByEmail: nothing found]");
                 }
@@ -137,7 +138,8 @@ public class UserDaoImpl implements UserDao {
             List<User> result = query.list();
 
             if (result != null) {
-                LOGGER.info("[getAllByRole: " + result.size() + " users]");
+                LOGGER.info(String.format("[getAllByRole: %d users]",
+                            result.size()));
             } else {
                 LOGGER.warn("[getAllByRole: nothing found]");
             }
@@ -163,7 +165,8 @@ public class UserDaoImpl implements UserDao {
             User result = query.uniqueResult();
 
             if (result != null) {
-                LOGGER.info("[getCreator: user id: " + result.getId() + "]");
+                LOGGER.info(String.format("[getCreator: user id: %d]",
+                            result.getId()));
             } else {
                 LOGGER.warn("[getCreator: nothing found]");
             }
@@ -188,7 +191,8 @@ public class UserDaoImpl implements UserDao {
             User result = query.uniqueResult();
 
             if (result != null) {
-                LOGGER.info("[getApprover: user id: " + result.getId() + "]");
+                LOGGER.info(String.format("[getApprover: user id: %d]",
+                            result.getId()));
             } else {
                 LOGGER.warn("[getApprover: nothing found]");
             }
@@ -212,7 +216,8 @@ public class UserDaoImpl implements UserDao {
             User result = query.uniqueResult();
 
             if (result != null) {
-                LOGGER.info("[getAssignee: user id: " + result.getId() + "]");
+                LOGGER.info(String.format("[getAssignee: user id: %d]",
+                            result.getId()));
             } else {
                 LOGGER.warn("[getAssignee: nothing found]");
             }

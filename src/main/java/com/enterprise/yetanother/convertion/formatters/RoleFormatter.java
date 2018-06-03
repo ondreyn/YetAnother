@@ -18,7 +18,7 @@ public class RoleFormatter implements Formatter<Roles> {
 
     @Override
     public Roles parse(String s, Locale locale) {
-        LOGGER.info("RoleFormatter parse s: " + s);
+        LOGGER.info(String.format("RoleFormatter parse s: %s", s));
 
         Roles[] enums = Roles.values();
         for (Roles role: enums) {

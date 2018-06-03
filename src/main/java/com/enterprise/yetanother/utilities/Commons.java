@@ -26,8 +26,10 @@ public class Commons {
             MultipartFile[] uploaded = new MultipartFile[length];
             request.getFiles("file").toArray(uploaded);
 
-            LOGGER.info("[getAttachments: attachmentsModel worked, got: " +
-                        request.getFiles("file").size() + " file/s]");
+            LOGGER.info(String.format("[getAttachments: attachmentsModel " +
+                        "worked, got: %d file/s]", request.
+                        getFiles("file").size()));
+
             return uploaded;
         } catch (Exception e) {
             LOGGER.warn("[getAttachments: attachmentsModel came empty!]");
@@ -44,8 +46,9 @@ public class Commons {
                 for (Attachment attachment: attachments) {
                     fileNames.add(attachment.getFileName());
                 }
-                LOGGER.info("[getAttachmentsFileNames: got attachments " +
-                            fileNames + "]");
+                LOGGER.info(String.format("[getAttachmentsFileNames: got " +
+                            "attachments %s]", fileNames));
+
                 return fileNames;
             } else {
                 LOGGER.warn("[getAttachmentsFileNames: attachments are null" +

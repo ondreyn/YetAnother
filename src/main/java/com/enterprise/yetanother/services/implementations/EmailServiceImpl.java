@@ -90,8 +90,8 @@ public class EmailServiceImpl implements EmailService {
             return;
         }
 
-        LOGGER.info("[sendBroadcastMail: " + mailList.size() + " mails '" +
-                    mailOptions[1] + "' SENT]");
+        LOGGER.info(String.format("[sendBroadcastMail: %d mails '%s' SENT]",
+                    mailList.size(), mailOptions[1]));
     }
 
     @Override
@@ -116,7 +116,8 @@ public class EmailServiceImpl implements EmailService {
             message.setText(textContent, true);
             this.mailSender.send(mimeMessage);
 
-            LOGGER.info("[sendPersonalMail: '" + mailOptions[1] + "' SENT]");
+            LOGGER.info(String.format("[sendPersonalMail: '%s' SENT]",
+                        mailOptions[1]));
         } else {
             LOGGER.info("[sendPersonalMail: some income parameters are nulls!]");
         }

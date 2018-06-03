@@ -98,7 +98,7 @@ public class AttachmentDaoImpl implements AttachmentDao {
             Query<Attachment> query = sessionFactory.getCurrentSession().createQuery(hql);
             query.setParameter("attachmentId", attachmentId);
             query.executeUpdate();
-            LOGGER.info("[delete: " + attachmentId + " deleted]");
+            LOGGER.info(String.format("[delete: %d deleted]", attachmentId));
         }
     }
 

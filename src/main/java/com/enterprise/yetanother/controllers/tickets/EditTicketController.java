@@ -73,9 +73,9 @@ public class EditTicketController {
             @ModelAttribute("OwnerId") Long ownerId,
             @PathVariable("id") Long id
     ) {
-        LOGGER.info("[editTicketModels: \nUserDto has: " + userDto
-                    .toString() + "\nTicketDto has: " + ticketDto.toString()
-                    + "\nCommentDto has: " + commentDto.toString() + "]");
+        LOGGER.info(String.format("[editTicketModels: \nUserDto has: %s\n" +
+                    "TicketDto has: %s\nCommentDto has: %s]", userDto, ticketDto,
+                    commentDto));
         try {
             this.ownerId = ownerId;
             this.ticketId = id;
@@ -136,7 +136,6 @@ public class EditTicketController {
     @RequestMapping(value = "/{id}/attachments", method = {RequestMethod.POST})
     public void getAttachments(MultipartHttpServletRequest request,
                                @PathVariable("id") Long id) {
-
         try {
             this.filesWorkedOut = true;
             MultipartFile[] files = Commons.getAttachments(request);
@@ -159,11 +158,10 @@ public class EditTicketController {
     }
 
     private void editTicket() {
-        LOGGER.info("[editTicket: we have: \nticketDto: " + this.ticketDto +
-                    "\nfilesWorkedOut: " + this.filesWorkedOut +
-                    "\ncommentDto: " + this.commentDto + "\nuserDto: " +
-                    this.userDto + "\nuser: " + this.user + "\nthis.ticket: "
-                    + this.ticket + "]");
+        LOGGER.info(String.format("[editTicket: we have: \nticketDto: %s\n" +
+                    "filesWorkedOut: %b\ncommentDto: %s\nuserDto: %s\nuser: " +
+                    "%s\nthis.ticket: %s]", this.filesWorkedOut, this.commentDto,
+                    this.userDto, this.user, this.ticket));
 
         if (this.ticketDto != null && this.filesWorkedOut
                 && this.commentDto != null && this.userDto != null

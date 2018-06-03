@@ -50,8 +50,9 @@ public class TicketsController {
                                    .getAllAcceptableTickets(currentUser);
 
             if (tickets != null && !tickets.isEmpty()) {
-                LOGGER.info("[getAllAccessibleTickets: " + tickets.size()
-                            + " ticket/s]");
+                LOGGER.info(String.format("[getAllAccessibleTickets: %d " +
+                            "ticket/s]", tickets.size()));
+
                 return ticketDtoConverter.entitiesToDtos(tickets);
             } else {
                 LOGGER.warn("[getAllAccessibleTickets: No tickets found]");
@@ -67,7 +68,8 @@ public class TicketsController {
     public TicketDto getTicketById(@PathVariable("id") Long id) {
         try {
             if (id != null && id != 0) {
-                LOGGER.info("[getTicketById: Ticket " + id + " found]");
+                LOGGER.info(String.format("[getTicketById: Ticket %d found]", id));
+
                 return ticketDtoConverter.entityToDto(ticketService.findTicketById(id));
             } else {
                 LOGGER.warn("[getTicketById: id is null or zero!]");

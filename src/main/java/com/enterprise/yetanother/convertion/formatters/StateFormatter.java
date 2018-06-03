@@ -18,7 +18,7 @@ public class StateFormatter implements Formatter<State> {
 
     @Override
     public State parse(String s, Locale locale) {
-        LOGGER.info("StateFormatter parse s: " + s);
+        LOGGER.info(String.format("StateFormatter parse s: %s", s));
         return State.valueOf(s);
     }
 
